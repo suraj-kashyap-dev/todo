@@ -13,9 +13,24 @@ export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
 
   const tasks: Task[] = [
-    { id: 1, title: 'Complete project proposal', priority: 'high', dueDate: '2024-10-20' },
-    { id: 2, title: 'Review team submissions', priority: 'medium', dueDate: '2024-10-21' },
-    { id: 3, title: 'Update documentation', priority: 'low', dueDate: '2024-10-22' },
+    {
+      id: 1,
+      title: 'Complete project proposal',
+      priority: 'high',
+      dueDate: '2024-10-20',
+    },
+    {
+      id: 2,
+      title: 'Review team submissions',
+      priority: 'medium',
+      dueDate: '2024-10-21',
+    },
+    {
+      id: 3,
+      title: 'Update documentation',
+      priority: 'low',
+      dueDate: '2024-10-22',
+    },
   ];
 
   return (
@@ -53,18 +68,30 @@ export const Dashboard: React.FC = () => {
         <div className="divide-y divide-gray-200">
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              <div key={task.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+              <div
+                key={task.id}
+                className="p-4 flex items-center justify-between hover:bg-gray-50"
+              >
                 <div className="flex items-center gap-3">
-                  <input type="checkbox" className="h-4 w-4 rounded border-gray-300" />
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
                   <span>{task.title}</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className={`
+                  <span
+                    className={`
                     px-2 py-1 rounded-full text-sm
-                    ${task.priority === 'high' ? 'bg-red-100 text-red-700' :
-                      task.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-green-100 text-green-700'}
-                  `}>
+                    ${
+                      task.priority === 'high'
+                        ? 'bg-red-100 text-red-700'
+                        : task.priority === 'medium'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-green-100 text-green-700'
+                    }
+                  `}
+                  >
                     {t(`priority.${task.priority}`)}
                   </span>
                   <span className="text-sm text-gray-500">{task.dueDate}</span>

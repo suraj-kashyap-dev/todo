@@ -1,23 +1,23 @@
 {
-    "appName": "टास्किफाई",
-    "searchPlaceholder": "कार्य खोजें...",
-    "dashboard": "डैशबोर्ड",
-    "today": "आज",
-    "important": "महत्वपूर्ण",
-    "completed": "पूर्ण",
-    "projects": "प्रोजेक्ट्स",
-    "settings": "सेटिंग्स",
-    "example": "उदाहरण",
-    "addTask": "कार्य जोड़ें",
-    "dueSoon": "जल्द देय",
-    "tasks": "कार्य",
-    "highPriority": "उच्च प्राथमिकता",
-    "recentTasks": "हाल के कार्य",
-    "priority": {
-        "high": "उच्च",
-        "medium": "मध्यम",
-        "low": "निम्न"
-    },
-    "loading": "लोड हो रहा है...",
-    "noTasks": "कोई कार्य नहीं मिला"
+  "appName": "टास्किफाई",
+  "searchPlaceholder": "कार्य खोजें...",
+  "dashboard": "डैशबोर्ड",
+  "today": "आज",
+  "important": "महत्वपूर्ण",
+  "completed": "पूर्ण",
+  "projects": "प्रोजेक्ट्स",
+  "settings": "सेटिंग्स",
+  "example": "उदाहरण",
+  "addTask": "कार्य जोड़ें",
+  "dueSoon": "जल्द देय",
+  "tasks": "कार्य",
+  "highPriority": "उच्च प्राथमिकता",
+  "recentTasks": "हाल के कार्य",
+  "priority": {
+    "high": "उच्च",
+    "medium": "मध्यम",
+    "low": "निम्न"
+  },
+  "loading": "लोड हो रहा है...",
+  "noTasks": "कोई कार्य नहीं मिला"
 }

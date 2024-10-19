@@ -1,23 +1,23 @@
 {
-    "appName": "Taskify",
-    "searchPlaceholder": "Search tasks...",
-    "dashboard": "Dashboard",
-    "today": "Today",
-    "important": "Important",
-    "completed": "Completed",
-    "projects": "Projects",
-    "settings": "Settings",
-    "example": "Example",
-    "addTask": "Add Task",
-    "dueSoon": "Due Soon",
-    "tasks": "tasks",
-    "highPriority": "High Priority",
-    "recentTasks": "Recent Tasks",
-    "priority": {
-        "high": "High",
-        "medium": "Medium",
-        "low": "Low"
-    },
-    "loading": "Loading...",
-    "noTasks": "No tasks found"
+  "appName": "Taskify",
+  "searchPlaceholder": "Search tasks...",
+  "dashboard": "Dashboard",
+  "today": "Today",
+  "important": "Important",
+  "completed": "Completed",
+  "projects": "Projects",
+  "settings": "Settings",
+  "example": "Example",
+  "addTask": "Add Task",
+  "dueSoon": "Due Soon",
+  "tasks": "tasks",
+  "highPriority": "High Priority",
+  "recentTasks": "Recent Tasks",
+  "priority": {
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low"
+  },
+  "loading": "Loading...",
+  "noTasks": "No tasks found"
 }

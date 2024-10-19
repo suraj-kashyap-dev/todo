@@ -6,21 +6,19 @@ import es from './langs/es.json';
 import ar from './langs/ar.json';
 
 const resources = {
-    en: { translation: en },
-    hi: { translation: hi },
-    ar: { translation: ar },
-    es: { translation: es },
+  en: { translation: en },
+  hi: { translation: hi },
+  ar: { translation: ar },
+  es: { translation: es },
 };
 
-i18n
-    .use(initReactI18next)
-    .init({
-        resources,
-        lng: 'en',
-        fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false,
-        },
-    });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: 'en',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18n;

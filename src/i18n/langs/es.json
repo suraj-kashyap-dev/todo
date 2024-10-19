@@ -1,23 +1,23 @@
 {
-    "appName": "Taskify",
-    "searchPlaceholder": "Buscar tareas...",
-    "dashboard": "Tablero",
-    "today": "Hoy",
-    "important": "Importante",
-    "completed": "Completado",
-    "projects": "Proyectos",
-    "settings": "Ajustes",
-    "example": "Ejemplo",
-    "addTask": "Agregar tarea",
-    "dueSoon": "Próximo a vencer",
-    "tasks": "tareas",
-    "highPriority": "Alta prioridad",
-    "recentTasks": "Tareas recientes",
-    "priority": {
-        "high": "Alta",
-        "medium": "Media",
-        "low": "Baja"
-    },
-    "loading": "Cargando...",
-    "noTasks": "No se encontraron tareas"
+  "appName": "Taskify",
+  "searchPlaceholder": "Buscar tareas...",
+  "dashboard": "Tablero",
+  "today": "Hoy",
+  "important": "Importante",
+  "completed": "Completado",
+  "projects": "Proyectos",
+  "settings": "Ajustes",
+  "example": "Ejemplo",
+  "addTask": "Agregar tarea",
+  "dueSoon": "Próximo a vencer",
+  "tasks": "tareas",
+  "highPriority": "Alta prioridad",
+  "recentTasks": "Tareas recientes",
+  "priority": {
+    "high": "Alta",
+    "medium": "Media",
+    "low": "Baja"
+  },
+  "loading": "Cargando...",
+  "noTasks": "No se encontraron tareas"
 }

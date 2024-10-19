@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
-interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface CheckboxProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -23,9 +24,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             `}
             {...props}
           />
-          {label && (
-            <span className="ml-2 text-sm text-gray-700">{label}</span>
-          )}
+          {label && <span className="ml-2 text-sm text-gray-700">{label}</span>}
         </label>
         {error && <p className="text-sm text-red-600">{error}</p>}
         {helperText && !error && (
@@ -33,7 +32,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Checkbox.displayName = 'Checkbox';

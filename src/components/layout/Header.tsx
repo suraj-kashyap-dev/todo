@@ -15,15 +15,17 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
       <div className="h-16 px-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={toggleSidebar}
             className="p-2 hover:bg-gray-100 rounded-lg lg:hidden"
           >
             <Menu className="h-6 w-6" />
           </button>
-          <Link to="/" className="text-xl font-bold select-none">{t('appName')}</Link>
+          <Link to="/" className="text-xl font-bold select-none">
+            {t('appName')}
+          </Link>
         </div>
-        
+
         <div className="hidden md:flex items-center flex-1 max-w-md mx-4">
           <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
