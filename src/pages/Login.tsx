@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../components/ui/form-controls/Button';
 import { Input } from '../components/ui/form-controls/Input';
+import GithubIcon from '../assets/github.svg';
+import GoogleIcon from '../assets/google.svg';
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -43,14 +45,37 @@ const Login: React.FC = () => {
         <Button type="submit" isLoading={loading} className="w-full">
           {t('login.login-btn')}
         </Button>
+
+        <Button type="button" variant="secondary" className="w-full" size="sm">
+          <div className="flex items-center gap-2">
+            <img src={GoogleIcon} alt="GitHub" className="h-5 w-auto" />
+
+            <p>{t('login.login-google-btn')}</p>
+          </div>
+        </Button>
+
+        <Button type="button" variant="secondary" className="w-full" size="sm">
+          <div className="flex items-center gap-2">
+            <img src={GithubIcon} alt="GitHub" className="h-5 w-auto" />
+
+            <p>{t('login.login-github-btn')}</p>
+          </div>
+        </Button>
       </form>
 
-      <div className="text-center">
+      <div className="flex flex-col text-center">
         <Link
           to="/register"
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
           {t('login.dont-have-account')}
+        </Link>
+
+        <Link
+          to="/register"
+          className="text-sm text-red-600 hover:text-red-500"
+        >
+          {t('login.forget-password')}
         </Link>
       </div>
     </div>

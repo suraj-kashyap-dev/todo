@@ -35,6 +35,9 @@
     "password": "Password",
     "password-placeholder": "Enter your password",
     "login-btn": "Sign In",
+    "login-google-btn": "Google",
+    "login-github-btn": "Github",
+    "forget-password": "Forget Password",
     "dont-have-account": "Don't have an account? Sign up"
   }
 }
