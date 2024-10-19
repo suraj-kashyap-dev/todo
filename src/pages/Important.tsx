@@ -9,5 +9,4 @@ const Important: React.FC = () => {
   );
 };
 
-
 export default Important;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../components/ui/form-controls/Button';
 import { PlusIcon, MinusIcon } from 'lucide-react';
 import { Checkbox } from '../components/ui/form-controls/Checkbox';
@@ -6,10 +6,18 @@ import { Input } from '../components/ui/form-controls/Input';
 import { Radio } from '../components/ui/form-controls/Radio';
 import { Select } from '../components/ui/form-controls/Select';
 import { Textarea } from '../components/ui/form-controls/Textarea';
+import Dropdown from '../components/ui/Dropdown';
+import { Tabs } from '../components/ui/Tab';
 
 const Example: React.FC = () => {
+  const [selectedValue, setSelectedValue] = useState('Select an option');
+
   const handleClick = () => {
     alert('Button Clicked!');
+  };
+
+  const handleDropdownSelect = (value: string) => {
+    setSelectedValue(value);
   };
 
   const renderSection = (title: string, content: React.ReactNode) => (
@@ -18,6 +26,24 @@ const Example: React.FC = () => {
       <div className="flex flex-wrap gap-2">{content}</div>
     </div>
   );
+
+  const tabs = [
+    {
+      id: 'tab1',
+      label: 'Tab 1',
+      content: <div>This is the content for Tab 1</div>,
+    },
+    {
+      id: 'tab2',
+      label: 'Tab 2',
+      content: <div>This is the content for Tab 2</div>,
+    },
+    {
+      id: 'tab3',
+      label: 'Tab 3',
+      content: <div>This is the content for Tab 3</div>,
+    },
+  ];
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -41,6 +67,21 @@ const Example: React.FC = () => {
           </Button>
         </>,
       )}
+
+      {renderSection(
+        'Dropdown',
+        <Dropdown
+          options={[
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' },
+          ]}
+          onSelect={handleDropdownSelect}
+          selectedValue={selectedValue}
+        />,
+      )}
+
+      {renderSection('Tabs', <Tabs tabs={tabs} />)}
 
       {renderSection(
         'Checkboxes',

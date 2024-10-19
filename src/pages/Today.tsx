@@ -8,5 +8,4 @@ const Today: React.FC = () => {
   );
 };
 
-
 export default Today;
