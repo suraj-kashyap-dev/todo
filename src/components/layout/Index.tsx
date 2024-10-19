@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Header } from './Header';
 import { Sidebar } from './sidebar/Index';
+import { Outlet } from 'react-router-dom';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -18,7 +15,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
       <main className="pt-16 lg:pl-64">
-        <div className="container mx-auto px-4 py-8">{children}</div>
+        <div className="container mx-auto px-4 py-8">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
