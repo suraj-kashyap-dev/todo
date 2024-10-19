@@ -3,10 +3,10 @@ name: Format Code with Prettier
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main
   pull_request:
     branches:
-      - main  # or your default branch
+      - main
 
 jobs:
   format:
