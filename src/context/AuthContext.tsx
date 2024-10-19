@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { User, AuthState } from '../types/auth';
 import { validateToken } from '../utils/auth';
+import axiosInstance from '../helpers/axios';
 
 interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<void>;
@@ -55,7 +56,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          // Validate token and get user data
           const user = await validateToken(token);
 
           dispatch({
@@ -78,29 +78,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (email: string, password: string) => {
     try {
-      dispatch({ type: 'SET_LOADING', payload: true });
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+      dispatch({
+        type: 'SET_LOADING',
+        payload: true,
       });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
+      axiosInstance.post("/auth/login", {
+        email,
+        password,
+      }).then((response: any) => {
+        localStorage.setItem('token', response.data.authentication.sessionToken);
 
-      const { user, token } = await response.json();
-
-      localStorage.setItem('token', token);
-
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: user,
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: response.data,
+        });
+      }).catch(error => {
+        console.log(error);
       });
     } catch (error) {
       throw error;
     } finally {
-      dispatch({ type: 'SET_LOADING', payload: false });
+      dispatch({
+        type: 'SET_LOADING',
+        payload: false
+      });
     }
   };
 
