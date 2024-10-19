@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Bell, Search, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -20,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           >
             <Menu className="h-6 w-6" />
           </button>
-          <h1 className="text-xl font-bold">{t('appName')}</h1>
+          <Link to="/" className="text-xl font-bold select-none">{t('appName')}</Link>
         </div>
         
         <div className="hidden md:flex items-center flex-1 max-w-md mx-4">

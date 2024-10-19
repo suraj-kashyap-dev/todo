@@ -1,14 +1,13 @@
 import React from 'react';
 import { Home, Calendar, Star, CheckCircle, Settings, FolderOpen, Copy } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Item from './Item';
 
 interface SidebarProps {
   isOpen: boolean;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
-  const location = useLocation();
   const { t } = useTranslation();
   
   const navItems = [
@@ -31,20 +30,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     `}>
       <nav className="h-full py-4 flex flex-col">
         <div className="space-y-1 px-3">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`
-                flex items-center gap-3 px-3 py-2 rounded-lg
-                ${location.pathname === item.path 
-                  ? 'bg-blue-50 text-blue-600' 
-                  : 'text-gray-700 hover:bg-gray-100'}
-              `}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
+          {navItems.map((item, index) => (
+            <Item
+              key={index}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+            />
           ))}
         </div>
       </nav>
