@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const NotFound: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center">
-      <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
-      <p className="text-lg mt-4">
-        Sorry, the page you're looking for doesn't exist.
-      </p>
+    <div className="flex h-screen flex-col items-center justify-center text-center">
+      <h1 className="text-4xl font-bold">{t('errors.404.title')}</h1>
+      <p className="mt-4 text-lg">{t('errors.404.message')}</p>
       <Link
         to="/"
-        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        className="mt-6 rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
-        Go Back Home
+        {t('errors.back')}
       </Link>
     </div>
   );

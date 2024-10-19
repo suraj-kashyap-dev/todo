@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
-import Dropdown from '../ui/Dropdown';
+import Dropdown from './ui/Dropdown';
 
 export const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();

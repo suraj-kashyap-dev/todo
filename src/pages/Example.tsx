@@ -21,8 +21,8 @@ const Example: React.FC = () => {
   };
 
   const renderSection = (title: string, content: React.ReactNode) => (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4">
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
+    <div className="mb-4 rounded-lg bg-white p-4 shadow-md">
+      <h2 className="mb-2 text-lg font-semibold">{title}</h2>
       <div className="flex flex-wrap gap-2">{content}</div>
     </div>
   );
@@ -46,8 +46,8 @@ const Example: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center">
+    <div className="mx-auto max-w-2xl p-4">
+      <h1 className="mb-6 text-center text-2xl font-bold">
         UI Component Examples
       </h1>
 

@@ -19,5 +19,22 @@
     "low": "Low"
   },
   "loading": "Loading...",
-  "noTasks": "No tasks found"
+  "noTasks": "No tasks found",
+  "errors": {
+    "404": {
+      "title": "404 - Page Not Found",
+      "message": "Sorry, the page you're looking for doesn't exist."
+    },
+    "back": "Go Back"
+  },
+  "login": {
+    "title": "Welcome back",
+    "description": "Sign in to your account",
+    "email-address": "Email Address",
+    "email-address-placeholder": "Enter your email address",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "login-btn": "Sign In",
+    "dont-have-account": "Don't have an account? Sign up"
+  }
 }

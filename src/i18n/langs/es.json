@@ -19,5 +19,12 @@
     "low": "Baja"
   },
   "loading": "Cargando...",
-  "noTasks": "No se encontraron tareas"
+  "noTasks": "No se encontraron tareas",
+  "errors": {
+    "404": {
+      "title": "Page not found",
+      "message": "Sorry Page not found you're looking for..."
+    },
+    "back": "Back"
+  }
 }

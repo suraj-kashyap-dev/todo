@@ -33,7 +33,10 @@ const Register: React.FC = () => {
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Full name
           </label>
           <input
@@ -46,7 +49,10 @@ const Register: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email address
           </label>
           <input
@@ -59,7 +65,10 @@ const Register: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
@@ -79,7 +88,10 @@ const Register: React.FC = () => {
         </button>
       </form>
       <div className="text-center">
-        <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-500">
+        <Link
+          to="/login"
+          className="text-sm text-indigo-600 hover:text-indigo-500"
+        >
           Already have an account? Sign in
         </Link>
       </div>

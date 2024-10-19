@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Bell, Search, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 import { Link } from 'react-router-dom';
 
 interface HeaderProps {

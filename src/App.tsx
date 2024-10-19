@@ -37,10 +37,10 @@ const App: React.FC = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/today" element={<Today />} />
               <Route path="/important" element={<Important />} />
-              <Route path="/example" element={<Example />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
+            <Route path="/example" element={<Example />} />
           </Routes>
         </Suspense>
       </Router>
