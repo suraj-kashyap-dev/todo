@@ -34,8 +34,10 @@ const Login: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           type="email"
+          id="email"
           label={t('login.email-address')}
           placeholder={t('login.email-address-placeholder')}
+          helperText={t('login.help')}
         />
 
         <Input
@@ -74,10 +76,10 @@ const Login: React.FC = () => {
         </Link>
 
         <Link
-          to="/register"
+          to="/forget-password"
           className="text-sm text-red-600 hover:text-red-500"
         >
-          {t('login.forget-password')}
+          {t('login.forget-password.title')}
         </Link>
       </div>
     </div>

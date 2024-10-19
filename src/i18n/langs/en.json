@@ -35,9 +35,14 @@
     "password": "Password",
     "password-placeholder": "Enter your password",
     "login-btn": "Sign In",
+    "help": "We'll never share your email to anyone",
+    "forget-password": {
+      "title": "Forget Password ?",
+      "get-otp": "Get OTP",
+      "remembered": "Password Remembered?"
+    },
     "login-google-btn": "Google",
     "login-github-btn": "Github",
-    "forget-password": "Forget Password",
     "dont-have-account": "Don't have an account? Sign up"
   }
 }

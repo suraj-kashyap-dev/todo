@@ -13,6 +13,7 @@ const Important = lazy(() => import('./pages/Important'));
 const Example = lazy(() => import('./pages/Example'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
+const ForgetPassword = lazy(() => import('./pages/ForgetPassword'));
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route element={<AuthLayout />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
             </Route>
 
             {/* Protected routes */}
