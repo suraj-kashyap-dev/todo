@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Important: React.FC = () => {
+const Important: React.FC = () => {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Important Tasks</h2>
@@ -8,3 +8,6 @@ export const Important: React.FC = () => {
     </div>
   );
 };
+
+
+export default Important;

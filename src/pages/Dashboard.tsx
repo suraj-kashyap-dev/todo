@@ -9,7 +9,7 @@ interface Task {
   dueDate: string;
 }
 
-export const Dashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { t } = useTranslation();
 
   const tasks: Task[] = [
@@ -106,3 +106,6 @@ export const Dashboard: React.FC = () => {
     </div>
   );
 };
+
+
+export default Dashboard;
