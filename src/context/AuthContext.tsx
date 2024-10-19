@@ -57,12 +57,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (token) {
           // Validate token and get user data
           const user = await validateToken(token);
-          dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: user,
+          });
         }
       } catch (error) {
         localStorage.removeItem('token');
       } finally {
-        dispatch({ type: 'SET_LOADING', payload: false });
+        dispatch({
+          type: 'SET_LOADING',
+          payload: false,
+        });
       }
     };
 
@@ -83,8 +90,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const { user, token } = await response.json();
+
       localStorage.setItem('token', token);
-      dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: user,
+      });
     } catch (error) {
       throw error;
     } finally {
@@ -94,7 +106,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const register = async (name: string, email: string, password: string) => {
     try {
-      dispatch({ type: 'SET_LOADING', payload: true });
+      dispatch({
+        type: 'SET_LOADING',
+        payload: true,
+      });
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -106,8 +122,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const { user, token } = await response.json();
+
       localStorage.setItem('token', token);
-      dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: user,
+      });
     } catch (error) {
       throw error;
     } finally {
@@ -129,8 +150,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
   return context;
 };
