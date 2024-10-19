@@ -5,7 +5,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/layout/Index';
 import { AuthLayout } from './components/layout/AuthLayout';
 import NotFound from './pages/Notfound';
-import Loading from './pages/Loading';
+import Loading from './components/Loading';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Today = lazy(() => import('./pages/Today'));

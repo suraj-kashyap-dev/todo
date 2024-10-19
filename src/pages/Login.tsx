@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       setTimeout(() => {
         setLoading(false);
       }, 2000);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
