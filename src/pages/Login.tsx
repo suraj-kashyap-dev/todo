@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       setTimeout(() => {
         setLoading(false);
       }, 2000);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
@@ -33,11 +33,13 @@ const Login: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
+          type="email"
           label={t('login.email-address')}
           placeholder={t('login.email-address-placeholder')}
         />
 
         <Input
+          type="password"
           label={t('login.password')}
           placeholder={t('login.password-placeholder')}
         />
