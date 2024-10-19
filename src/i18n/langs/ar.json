@@ -1,0 +1,23 @@
+{
+    "appName": "تاسكيفاي",
+    "searchPlaceholder": "ابحث عن المهام...",
+    "dashboard": "لوحة التحكم",
+    "today": "اليوم",
+    "important": "مهم",
+    "completed": "مكتمل",
+    "projects": "المشاريع",
+    "settings": "الإعدادات",
+    "example": "مثال",
+    "addTask": "إضافة مهمة",
+    "dueSoon": "مستحق قريبًا",
+    "tasks": "المهام",
+    "highPriority": "أولوية عالية",
+    "recentTasks": "المهام الأخيرة",
+    "priority": {
+        "high": "عالي",
+        "medium": "متوسط",
+        "low": "منخفض"
+    },
+    "loading": "جار التحميل...",
+    "noTasks": "لم يتم العثور على مهام"
+}
