@@ -1,6 +1,9 @@
 name: Format Code with Prettier
 
 on:
+  push:
+    branches:
+      - main  # or your default branch
   pull_request:
     branches:
       - main  # or your default branch
