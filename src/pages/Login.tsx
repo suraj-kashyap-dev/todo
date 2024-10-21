@@ -15,8 +15,8 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string().email().required('Email is required field.'),
-  password: Yup.string().required('Password field is required.').min(6).max(12),
+  email: Yup.string().email().required(),
+  password: Yup.string().required().min(6).max(12),
 });
 
 const Login: React.FC = () => {
@@ -57,6 +57,8 @@ const Login: React.FC = () => {
 
         <Input
           type="password"
+          id="password"
+          name="password"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.password}
