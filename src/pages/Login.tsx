@@ -6,6 +6,18 @@ import { Input } from '../components/ui/form-controls/Input';
 import GithubIcon from '../assets/github.svg';
 import GoogleIcon from '../assets/google.svg';
 import { useAuth } from '../context/AuthContext';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+const initialValues = {
+  email: '',
+  password: '',
+};
+
+const validationSchema = Yup.object({
+  email: Yup.string().email().required('Email is required field.'),
+  password: Yup.string().required('Password field is required.').min(6).max(12),
+});
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -14,18 +26,13 @@ const Login: React.FC = () => {
 
   const auth = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      setLoading(true);
-
-      const data = auth.login(
-        "suraj.kashyap370@webkul.in",
-        "admin123",
-      );
-    } catch (error) {}
-  };
+  const { errors, handleSubmit, handleBlur, values, handleChange } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: function (values) {
+      console.log(values);
+    },
+  });
 
   return (
     <div className="space-y-6">
@@ -39,24 +46,30 @@ const Login: React.FC = () => {
         <Input
           type="email"
           id="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.email}
+          error={errors.email}
           label={t('login.email-address')}
-          value={"suraj.kashyap370@webkuk.in"}
-          onChange={() => {}}
           placeholder={t('login.email-address-placeholder')}
           helperText={t('login.help')}
         />
 
         <Input
           type="password"
-          value={"admin123"}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.password}
+          error={errors.password}
           label={t('login.password')}
-          onChange={() => {}}
           placeholder={t('login.password-placeholder')}
         />
 
         <Button type="submit" isLoading={loading} className="w-full">
           {t('login.login-btn')}
         </Button>
+
+        <div className="border border-dashed border-gray-200"></div>
 
         <Button type="button" variant="secondary" className="w-full" size="sm">
           <div className="flex items-center gap-2">
@@ -74,6 +87,8 @@ const Login: React.FC = () => {
           </div>
         </Button>
       </form>
+
+      <div className="border border-dashed border-gray-200"></div>
 
       <div className="flex flex-col text-center">
         <Link

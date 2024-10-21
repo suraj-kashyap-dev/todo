@@ -83,25 +83,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         payload: true,
       });
 
-      axiosInstance.post("/auth/login", {
-        email,
-        password,
-      }).then((response: any) => {
-        localStorage.setItem('token', response.data.authentication.sessionToken);
+      axiosInstance
+        .post('/auth/login', {
+          email,
+          password,
+        })
+        .then((response: any) => {
+          localStorage.setItem(
+            'token',
+            response.data.authentication.sessionToken,
+          );
 
-        dispatch({
-          type: 'LOGIN_SUCCESS',
-          payload: response.data,
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: response.data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      }).catch(error => {
-        console.log(error);
-      });
     } catch (error) {
       throw error;
     } finally {
       dispatch({
         type: 'SET_LOADING',
-        payload: false
+        payload: false,
       });
     }
   };
