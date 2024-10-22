@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../components/ui/form-controls/Button';
 import { Input } from '../components/ui/form-controls/Input';
@@ -10,27 +10,44 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: 'suraj.kashyap370@webkul.in',
+  password: 'admin123',
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string().email().required(),
-  password: Yup.string().required().min(6).max(12),
+  email: Yup.string()
+    .email('Invalid email format')
+    .required('Email is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+    .max(12, 'Password must not exceed 12 characters'),
 });
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
-
   const { t } = useTranslation();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const auth = useAuth();
-
-  const { errors, handleSubmit, handleBlur, values, handleChange } = useFormik({
+  const {
+    errors,
+    handleSubmit,
+    handleBlur,
+    values,
+    handleChange,
+    isSubmitting,
+  } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: function (values) {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        await login(values.email, values.password);
+
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -38,7 +55,6 @@ const Login: React.FC = () => {
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="text-3xl font-bold">{t('login.title')}</h2>
-
         <p className="mt-2 text-gray-600">{t('login.description')}</p>
       </div>
 
@@ -46,13 +62,14 @@ const Login: React.FC = () => {
         <Input
           type="email"
           id="email"
+          name="email"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.email}
           error={errors.email}
           label={t('login.email-address')}
           placeholder={t('login.email-address-placeholder')}
-          helperText={t('login.help')}
+          helperText={errors.email}
         />
 
         <Input
@@ -64,6 +81,7 @@ const Login: React.FC = () => {
           value={values.password}
           error={errors.password}
           label={t('login.password')}
+          autoComplete="true"
           placeholder={t('login.password-placeholder')}
         />
 

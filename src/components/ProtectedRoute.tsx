@@ -7,6 +7,7 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { isAuthenticated, isLoading } = useAuth();
+
   const location = useLocation();
 
   if (isLoading) {

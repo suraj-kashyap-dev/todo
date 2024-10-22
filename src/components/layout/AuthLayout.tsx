@@ -3,10 +3,14 @@ import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
 export const AuthLayout: React.FC = () => {
   const { pathname } = useLocation();
-  const isAuthenticated = false; // Replace with your auth logic
 
-  // Redirect authenticated users away from auth pages
-  if (isAuthenticated && ['/login', '/register'].includes(pathname)) {
+  const isAuthenticated = (): boolean => {
+    const token = localStorage.getItem('token');
+
+    return !!token;
+  };
+
+  if (isAuthenticated() && ['/login', '/register'].includes(pathname)) {
     return <Navigate to="/" replace />;
   }
 
