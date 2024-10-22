@@ -6,6 +6,7 @@ import { Layout } from './components/layout/Index';
 import { AuthLayout } from './components/layout/AuthLayout';
 import NotFound from './pages/Notfound';
 import Loading from './components/Loading';
+import Profile from './pages/Profile';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Today = lazy(() => import('./pages/Today'));
@@ -38,6 +39,7 @@ const App: React.FC = () => {
             >
               <Route path="/" element={<Dashboard />} />
               <Route path="/today" element={<Today />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/important" element={<Important />} />
             </Route>
 

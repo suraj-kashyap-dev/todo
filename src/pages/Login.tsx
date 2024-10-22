@@ -10,8 +10,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const initialValues = {
-  email: 'suraj.kashyap370@webkul.in',
-  password: 'admin123',
+  email: '',
+  password: '',
 };
 
 const validationSchema = Yup.object({
@@ -36,17 +36,22 @@ const Login: React.FC = () => {
     handleBlur,
     values,
     handleChange,
-    isSubmitting,
   } = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
       try {
+        setLoading(true);
+
         await login(values.email, values.password);
+
+        setLoading(false);
 
         navigate('/');
       } catch (error) {
         console.log(error);
+
+        setLoading(false);
       }
     },
   });
