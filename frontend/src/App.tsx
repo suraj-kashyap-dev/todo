@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/layout/Index';
 import { AuthLayout } from './components/layout/AuthLayout';
@@ -24,9 +24,9 @@ const App: React.FC = () => {
           <Routes>
             {/* Auth routes */}
             <Route element={<AuthLayout />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/login" element={<AuthRedirectRoute><Login /></AuthRedirectRoute>} />
+              <Route path="/register" element={<AuthRedirectRoute><Register /></AuthRedirectRoute>} />
+              <Route path="/forget-password" element={<AuthRedirectRoute><ForgetPassword /></AuthRedirectRoute>} />
             </Route>
 
             {/* Protected routes */}
@@ -50,6 +50,16 @@ const App: React.FC = () => {
       </Router>
     </AuthProvider>
   );
+};
+
+const AuthRedirectRoute = ({ children }: { children: JSX.Element }) => {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
 };
 
 export default App;

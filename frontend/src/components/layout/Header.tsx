@@ -3,7 +3,7 @@ import { Menu, Bell, Search, User, Power } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface HeaderProps {
   toggleSidebar: () => void;
