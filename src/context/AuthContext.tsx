@@ -1,30 +1,11 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { User, AuthState, LoginResponse, ApiError } from '../types/auth';
+import { User, AuthState, LoginResponse, ApiError, AuthAction, AuthContextType } from '../types/auth';
 import axiosInstance from '../helpers/axios';
 import axios, { AxiosError } from 'axios';
 
-interface AuthContextType {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (
-    username: string,
-    email: string,
-    password: string,
-  ) => Promise<void>;
-  logout: () => void;
-}
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-type AuthAction =
-  | { type: 'LOGIN_SUCCESS'; payload: User }
-  | { type: 'LOGOUT' }
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string | null };
-
+// Auth Reducer
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
@@ -94,7 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         dispatch({ type: 'SET_LOADING', payload: true });
 
-        const response = await axiosInstance.get<LoginResponse>('/auth/me');
+        const response = await axiosInstance.get<LoginResponse>('/user/profile');
 
         const userData: User = {
           _id: response.data._id,
@@ -133,12 +114,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         password,
       });
 
-      // Store token
       localStorage.setItem('token', response.data.authentication.sessionToken);
-      axiosInstance.defaults.headers.common['Authorization'] =
-        `Bearer ${response.data.authentication.sessionToken}`;
 
-      // Create user object from response
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.authentication.sessionToken}`;
+
       const userData: User = {
         _id: response.data._id,
         username: response.data.username,
@@ -149,7 +128,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
     } catch (error) {
       const errorMessage = handleApiError(error);
+
       dispatch({ type: 'SET_ERROR', payload: errorMessage });
+
       throw new Error(errorMessage);
     }
   };

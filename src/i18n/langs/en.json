@@ -44,5 +44,16 @@
     "login-google-btn": "Google",
     "login-github-btn": "Github",
     "dont-have-account": "Don't have an account? Sign up"
+  },
+  "register": {
+    "name": "Name",
+    "name-placeholder": "Enter your name",
+    "email": "Email",
+    "email-placeholder": "Enter your email",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "confirm_password": "Confirm Password",
+    "confirm-password-placeholder": "Enter your password again",
+    "register-btn": "Sign Up"
   }
 }
