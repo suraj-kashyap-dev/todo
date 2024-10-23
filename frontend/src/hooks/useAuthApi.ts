@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { LoginCredentials, RegisterData, AuthResponse } from '../types/auth.types';
+import {
+  LoginCredentials,
+  RegisterData,
+  AuthResponse,
+} from '../types/auth.types';
 
 // Use Vite's import.meta.env to access environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -26,28 +30,34 @@ export const useAuthApi = () => {
   const registerUser = async (data: RegisterData): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await axios.post<AuthResponse>(`${API_URL}/auth/register`, data);
+      const response = await axios.post<AuthResponse>(
+        `${API_URL}/auth/register`,
+        data,
+      );
       login(response.data);
     } catch (error) {
       const errorMessage = handleError(error);
-      setState(prev => ({ ...prev, error: errorMessage }));
+      setState((prev) => ({ ...prev, error: errorMessage }));
       throw error;
     } finally {
-      setState(prev => ({ ...prev, loading: false }));
+      setState((prev) => ({ ...prev, loading: false }));
     }
   };
 
   const loginUser = async (credentials: LoginCredentials): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await axios.post<AuthResponse>(`${API_URL}/auth/login`, credentials);
+      const response = await axios.post<AuthResponse>(
+        `${API_URL}/auth/login`,
+        credentials,
+      );
       login(response.data);
     } catch (error) {
       const errorMessage = handleError(error);
-      setState(prev => ({ ...prev, error: errorMessage }));
+      setState((prev) => ({ ...prev, error: errorMessage }));
       throw error;
     } finally {
-      setState(prev => ({ ...prev, loading: false }));
+      setState((prev) => ({ ...prev, loading: false }));
     }
   };
 

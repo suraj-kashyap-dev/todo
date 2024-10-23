@@ -41,30 +41,24 @@ const Register: React.FC = () => {
   const { registerUser, loading, error } = useAuthApi();
   const navigate = useNavigate();
 
-  const {
-    errors,
-    handleSubmit,
-    handleBlur,
-    values,
-    handleChange,
-    touched,
-  } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (
-      values: RegisterData,
-      { setSubmitting }: FormikHelpers<RegisterData>
-    ) => {
-      try {
-        await registerUser(values);
-        navigate('/');
-      } catch (err) {
-      console.log(err);
-        
-        setSubmitting(false);
-      }
-    },
-  });
+  const { errors, handleSubmit, handleBlur, values, handleChange, touched } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (
+        values: RegisterData,
+        { setSubmitting }: FormikHelpers<RegisterData>,
+      ) => {
+        try {
+          await registerUser(values);
+          navigate('/');
+        } catch (err) {
+          console.log(err);
+
+          setSubmitting(false);
+        }
+      },
+    });
 
   return (
     <div className="mx-auto max-w-md space-y-6">
@@ -84,11 +78,12 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.firstName}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.firstName && touched.firstName
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`} 
-            />
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.firstName && touched.firstName
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
+          />
           {errors.firstName && touched.firstName && (
             <ErrorMessage error={errors.firstName} />
           )}
@@ -105,10 +100,11 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.lastName}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.lastName && touched.lastName
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`}
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.lastName && touched.lastName
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
           />
           {errors.lastName && touched.lastName && (
             <ErrorMessage error={errors.lastName} />
@@ -126,10 +122,11 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.email && touched.email
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`} 
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.email && touched.email
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
           />
           {errors.email && touched.email && (
             <ErrorMessage error={errors.email} />
@@ -147,10 +144,11 @@ const Register: React.FC = () => {
             placeholder="Enter your password"
             onBlur={handleBlur}
             value={values.password}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.password && touched.password
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`} 
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.password && touched.password
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
           />
           {errors.password && touched.password && (
             <ErrorMessage error={errors.password} />

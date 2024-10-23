@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
     if (confirm('Are you sure want to logout ? ')) {
       logout();
     }
-  }
+  };
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white">
@@ -51,8 +51,8 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             <Bell className="h-5 w-5" />
             <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500"></span>
           </button>
-          <Link to={"/profile"} className="rounded-lg p-2 hover:bg-gray-100">
-            <User  className="h-5 w-5" />
+          <Link to={'/profile'} className="rounded-lg p-2 hover:bg-gray-100">
+            <User className="h-5 w-5" />
           </Link>
 
           <button className="rounded-lg p-2 hover:bg-gray-100">

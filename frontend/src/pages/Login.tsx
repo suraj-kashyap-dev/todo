@@ -16,42 +16,35 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
-  password: Yup.string()
-    .required('Password is required'),
+  password: Yup.string().required('Password is required'),
 });
 
 const initialValues = {
-  email: "",
-  password: "",
-}
+  email: '',
+  password: '',
+};
 
 const Login: React.FC = () => {
   const { loginUser, loading, error } = useAuthApi();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const {
-    errors,
-    handleSubmit,
-    handleBlur,
-    values,
-    touched,
-    handleChange,
-  } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: async (
-      values: LoginCredentials,
-      { setSubmitting }: FormikHelpers<LoginCredentials>
-    ) => {
-      try {
-        await loginUser(values);
-        navigate('/');
-      } catch (err) {
-        setSubmitting(false);
-      }
-    }
-  });
+  const { errors, handleSubmit, handleBlur, values, touched, handleChange } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: async (
+        values: LoginCredentials,
+        { setSubmitting }: FormikHelpers<LoginCredentials>,
+      ) => {
+        try {
+          await loginUser(values);
+          navigate('/');
+        } catch (err) {
+          setSubmitting(false);
+        }
+      },
+    });
 
   return (
     <div className="space-y-6">
@@ -71,10 +64,11 @@ const Login: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.email && touched.email
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`}
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.email && touched.email
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
           />
           {errors.email && touched.email && (
             <ErrorMessage error={errors.email} />
@@ -92,10 +86,11 @@ const Login: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
-            className={`mt-1 block w-full rounded-md shadow-sm ${errors.password && touched.password
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-              }`}
+            className={`mt-1 block w-full rounded-md shadow-sm ${
+              errors.password && touched.password
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+            }`}
           />
           {errors.password && touched.password && (
             <ErrorMessage error={errors.password} />
