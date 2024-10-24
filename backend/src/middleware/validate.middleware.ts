@@ -8,15 +8,25 @@ export const validateRequest = (schema: AnyZodObject) => {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        res.status(400).json({
+        const validationErrors: Record<string, string[]> = {};
+
+        error.errors.forEach(err => {
+          const field = err.path.join('.');
+
+          if (validationErrors[field]) {
+            validationErrors[field].push(err.message);
+          } else {
+            validationErrors[field] = [err.message];
+          }
+        });
+
+        res.status(422).json({
           message: 'Validation error',
-          errors: error.errors.map(err => ({
-            field: err.path.join('.'),
-            message: err.message
-          }))
+          errors: validationErrors,
         });
         return;
       }
+      
       res.status(500).json({ message: 'Internal server error' });
     }
   };

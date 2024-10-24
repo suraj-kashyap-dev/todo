@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../components/ui/form-controls/Button';
@@ -11,12 +11,13 @@ import { Input } from '../components/ui/form-controls/Input';
 import { Label } from '../components/ui/form-controls/Label';
 import { ErrorMessage } from '../components/ui/form-controls/ErrorMessage';
 import { LoginCredentials } from '../types/auth.types';
+import { Bounce, toast } from 'react-toastify';
 
 const validationSchema = Yup.object({
   email: Yup.string()
     .email('Invalid email format')
     .required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  password: Yup.string().min(8).required('Password is required'),
 });
 
 const initialValues = {
@@ -29,6 +30,22 @@ const Login: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  }, [error]);
+
   const { errors, handleSubmit, handleBlur, values, touched, handleChange } =
     useFormik({
       initialValues,
@@ -40,7 +57,11 @@ const Login: React.FC = () => {
         try {
           await loginUser(values);
           navigate('/');
-        } catch (err) {
+        } catch (error: any) {
+          if(error.status == 422) {
+            console.log(error.response.data.errors);
+          }
+          
           setSubmitting(false);
         }
       },
@@ -96,10 +117,6 @@ const Login: React.FC = () => {
             <ErrorMessage error={errors.password} />
           )}
         </div>
-
-        {error && (
-          <div className="text-center text-sm text-red-500">{error}</div>
-        )}
 
         <Button type="submit" isLoading={loading} className="w-full">
           {t('login.login-btn')}

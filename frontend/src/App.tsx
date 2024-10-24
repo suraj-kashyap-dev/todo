@@ -5,6 +5,8 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/layout/Index';
@@ -24,6 +26,7 @@ const ForgetPassword = lazy(() => import('./pages/ForgetPassword'));
 const App: React.FC = () => {
   return (
     <AuthProvider>
+      <ToastContainer />
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>

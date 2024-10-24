@@ -1,5 +1,5 @@
 import { FormikHelpers, useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -11,6 +11,7 @@ import GithubIcon from '../assets/github.svg';
 import GoogleIcon from '../assets/google.svg';
 import { RegisterData } from '../types/auth.types';
 import { useAuthApi } from '../hooks/useAuthApi';
+import { Bounce, toast } from 'react-toastify';
 
 const initialValues = {
   email: '',
@@ -41,19 +42,37 @@ const Register: React.FC = () => {
   const { registerUser, loading, error } = useAuthApi();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  }, [error]);
+
   const { errors, handleSubmit, handleBlur, values, handleChange, touched } =
     useFormik({
       initialValues,
       validationSchema,
       onSubmit: async (
         values: RegisterData,
-        { setSubmitting }: FormikHelpers<RegisterData>,
+        { setSubmitting, setErrors }: FormikHelpers<RegisterData>,
       ) => {
         try {
           await registerUser(values);
           navigate('/');
-        } catch (err) {
-          console.log(err);
+        } catch (error: any) {
+          if (error.status == 422) {
+            setErrors(error.response.data.errors)
+          }
 
           setSubmitting(false);
         }
@@ -78,11 +97,10 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.firstName}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
-              errors.firstName && touched.firstName
+            className={`mt-1 block w-full rounded-md shadow-sm ${errors.firstName && touched.firstName
                 ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-            }`}
+              }`}
           />
           {errors.firstName && touched.firstName && (
             <ErrorMessage error={errors.firstName} />
@@ -100,11 +118,10 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.lastName}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
-              errors.lastName && touched.lastName
+            className={`mt-1 block w-full rounded-md shadow-sm ${errors.lastName && touched.lastName
                 ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-            }`}
+              }`}
           />
           {errors.lastName && touched.lastName && (
             <ErrorMessage error={errors.lastName} />
@@ -122,11 +139,10 @@ const Register: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
-              errors.email && touched.email
+            className={`mt-1 block w-full rounded-md shadow-sm ${errors.email && touched.email
                 ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-            }`}
+              }`}
           />
           {errors.email && touched.email && (
             <ErrorMessage error={errors.email} />
@@ -144,11 +160,10 @@ const Register: React.FC = () => {
             placeholder="Enter your password"
             onBlur={handleBlur}
             value={values.password}
-            className={`mt-1 block w-full rounded-md shadow-sm ${
-              errors.password && touched.password
+            className={`mt-1 block w-full rounded-md shadow-sm ${errors.password && touched.password
                 ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                 : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-            }`}
+              }`}
           />
           {errors.password && touched.password && (
             <ErrorMessage error={errors.password} />
