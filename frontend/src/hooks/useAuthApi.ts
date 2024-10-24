@@ -7,7 +7,6 @@ import {
   AuthResponse,
 } from '../types/auth.types';
 
-// Use Vite's import.meta.env to access environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 interface AuthApiState {
@@ -20,6 +19,7 @@ export const useAuthApi = () => {
     loading: false,
     error: null,
   });
+
   const { login } = useAuth();
 
   const handleError = (error: unknown) => {

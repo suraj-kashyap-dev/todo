@@ -1,9 +1,10 @@
 import React from 'react';
-import { Menu, Bell, Search, User, Power } from 'lucide-react';
+import { Menu, Bell, Search, User, Power, Divide } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import Dropdown from '../ui/Dropdown';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -51,13 +52,46 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             <Bell className="h-5 w-5" />
             <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500"></span>
           </button>
-          <Link to={'/profile'} className="rounded-lg p-2 hover:bg-gray-100">
-            <User className="h-5 w-5" />
-          </Link>
 
-          <button className="rounded-lg p-2 hover:bg-gray-100">
-            <Power onClick={handleLogout} className="h-5 w-5" />
-          </button>
+          <Dropdown position="bottom-right">
+            <Dropdown.Toggle>
+              <button className="relative rounded-lg p-2 hover:bg-gray-100">
+                <User className="h-5 w-5" />
+              </button>
+            </Dropdown.Toggle>
+            <Dropdown.Content>
+              <div className="min-w-[250px] max-w-[250px]">
+                <div className="border-b p-3 text-xl font-bold dark:border-gray-800 dark:text-gray-300">
+                  {t('Account')}
+                </div>
+                <div className="grid">
+                  <Link
+                    className="flex items-start gap-1.5 border-b p-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
+                    to="/profile"
+                  >
+                    <span className="icon-information h-fit rounded-full bg-amber-100 text-2xl text-amber-600" />
+                    <div className="grid">
+                      <p className="text-gray-800 dark:text-white">
+                        {t('Profile')}
+                      </p>
+                    </div>
+                  </Link>
+
+                  <button
+                    className="flex items-start gap-1.5 border-b p-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
+                    onClick={handleLogout}
+                  >
+                    <span className="icon-information h-fit rounded-full bg-amber-100 text-2xl text-amber-600" />
+                    <div className="grid">
+                      <p className="text-gray-800 dark:text-white">
+                        {t('Logout')}
+                      </p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </Dropdown.Content>
+          </Dropdown>
         </div>
       </div>
     </header>

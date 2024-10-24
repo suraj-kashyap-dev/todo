@@ -11,7 +11,7 @@ import { Input } from '../components/ui/form-controls/Input';
 import { Label } from '../components/ui/form-controls/Label';
 import { ErrorMessage } from '../components/ui/form-controls/ErrorMessage';
 import { LoginCredentials } from '../types/auth.types';
-import { Bounce, toast } from 'react-toastify';
+import { showToast } from '../utils/toast';
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -32,16 +32,8 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
+      showToast(error, {
+        type: 'error',
       });
     }
   }, [error]);
@@ -58,10 +50,10 @@ const Login: React.FC = () => {
           await loginUser(values);
           navigate('/');
         } catch (error: any) {
-          if(error.status == 422) {
+          if (error.status == 422) {
             console.log(error.response.data.errors);
           }
-          
+
           setSubmitting(false);
         }
       },
