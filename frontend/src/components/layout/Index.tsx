@@ -15,7 +15,7 @@ export const Layout: React.FC = () => {
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
       <main className="pt-16 lg:pl-64">
-        <div className="container mx-auto px-4 py-8">
+        <div >
           <Outlet />
         </div>
       </main>

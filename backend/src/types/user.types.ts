@@ -4,6 +4,11 @@ export interface IUser {
     password: string;
     firstName: string;
     lastName: string;
+    role: String,
+    phoneNumber: String,
+    address: String,
+    company: String,
+    bio: String,
     createdAt: Date;
 }
 
@@ -12,6 +17,11 @@ export interface IUserInput {
     password: string;
     firstName: string;
     lastName: string;
+    role: String,
+    phoneNumber: String,
+    address: String,
+    company: String,
+    bio: String,
 }
 
 export interface ILoginInput {
