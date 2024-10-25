@@ -1,14 +1,7 @@
 import { useEffect } from 'react';
 import { FormikHelpers, useFormik } from 'formik';
 import * as Yup from 'yup';
-import {
-  Camera,
-  Mail,
-  phoneNumber,
-  MapPin,
-  Briefcase,
-  Save,
-} from 'lucide-react';
+import { Camera, Save } from 'lucide-react';
 import { Input } from '../components/ui/form-controls/Input';
 import { Button } from '../components/ui/form-controls/Button';
 import { Textarea } from '../components/ui/form-controls/Textarea';
@@ -18,6 +11,7 @@ import { useProfileApi } from '../hooks/useProfileApi';
 import { showToast } from '../utils/toast';
 import { User } from '../types/auth.types';
 import { useTranslation } from 'react-i18next';
+import Loading from '../components/Loading';
 
 const initialValues = {
   firstName: '',

@@ -143,7 +143,7 @@ const Dropdown: React.FC<DropdownProps> & {
             return (
               isActive && (
                 <div
-                  className="absolute transform overflow-hidden rounded-[20px] bg-white shadow-[0px_10px_84px_rgba(0,0,0,0.1)] transition-all duration-200 ease-out"
+                  className="absolute transform overflow-hidden rounded-sm bg-white shadow-[0px_10px_84px_rgba(0,0,0,0.1)] transition-all duration-200 ease-out"
                   style={getPositionStyles()}
                 >
                   {Children.map(child.props.children, (item) => {

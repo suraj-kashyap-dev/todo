@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import { AuthRequest } from '../middleware/auth.middleware';
 import User from '../models/User';
-import { router } from '../routes/user.routes';
 
 export const index = async (request: AuthRequest, response: Response) => {
     try {

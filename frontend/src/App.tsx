@@ -8,7 +8,7 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { Layout } from './components/layout/Index';
 import { AuthLayout } from './components/layout/AuthLayout';
 import NotFound from './pages/Notfound';

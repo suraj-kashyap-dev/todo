@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Bell, Search, User, Power, Divide } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '../LanguageSwitcher';
+import { LanguageSwitcher } from './Translator';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import Dropdown from '../ui/Dropdown';
@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               </button>
             </Dropdown.Toggle>
             <Dropdown.Content>
-              <div className="min-w-[250px] max-w-[250px]">
+              <div className="min-w-[150px] max-w-[150px]">
                 <div className="border-b p-3 text-xl font-bold dark:border-gray-800 dark:text-gray-300">
                   {t('Account')}
                 </div>

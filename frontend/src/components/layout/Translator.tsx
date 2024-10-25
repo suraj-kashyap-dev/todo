@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
-import Dropdown from './ui/Dropdown';
+import Dropdown from '../ui/Dropdown';
 
 export const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
@@ -26,7 +26,7 @@ export const LanguageSwitcher: React.FC = () => {
       </Dropdown.Toggle>
       <Dropdown.Content>
         {languageOptions.map((lang) => (
-          <div key={lang.value} className="min-w-[250px] max-w-[250px]">
+          <div key={lang.value} className="min-w-[150px] max-w-[150px]">
             <div className="grid">
               <button
                 onClick={() => changeLanguage(lang.value)}
