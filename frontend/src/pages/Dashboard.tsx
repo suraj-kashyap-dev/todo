@@ -34,54 +34,55 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="mx-auto bg-gray-100 px-6 py-6">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">{t('dashboard')}</h2>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
           <PlusCircle className="h-5 w-5" />
           {t('addTask')}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <div className="flex items-center gap-2 text-orange-600 mb-2">
-            <Clock className="h-5 w-5" />
-            <h3 className="font-semibold">{t('dueSoon')}</h3>
+      <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="mb-2 flex items-center gap-2 text-orange-600">
+              <Clock className="h-5 w-5" />
+              <h3 className="font-semibold">{t('dueSoon')}</h3>
+            </div>
+            <p className="text-2xl font-bold">5 {t('tasks')}</p>
           </div>
-          <p className="text-2xl font-bold">5 {t('tasks')}</p>
+
+          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="mb-2 flex items-center gap-2 text-red-600">
+              <AlertCircle className="h-5 w-5" />
+              <h3 className="font-semibold">{t('highPriority')}</h3>
+            </div>
+            <p className="text-2xl font-bold">3 {t('tasks')}</p>
+          </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <div className="flex items-center gap-2 text-red-600 mb-2">
-            <AlertCircle className="h-5 w-5" />
-            <h3 className="font-semibold">{t('highPriority')}</h3>
+        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 p-4">
+            <h3 className="font-semibold">{t('recentTasks')}</h3>
           </div>
-          <p className="text-2xl font-bold">3 {t('tasks')}</p>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-4 border-b border-gray-200">
-          <h3 className="font-semibold">{t('recentTasks')}</h3>
-        </div>
-        <div className="divide-y divide-gray-200">
-          {tasks.length > 0 ? (
-            tasks.map((task) => (
-              <div
-                key={task.id}
-                className="p-4 flex items-center justify-between hover:bg-gray-50"
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300"
-                  />
-                  <span>{task.title}</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span
-                    className={`
+          <div className="divide-y divide-gray-200">
+            {tasks.length > 0 ? (
+              tasks.map((task) => (
+                <div
+                  key={task.id}
+                  className="flex items-center justify-between p-4 hover:bg-gray-50"
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-gray-300"
+                    />
+                    <span>{task.title}</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span
+                      className={`
                     px-2 py-1 rounded-full text-sm
                     ${
                       task.priority === 'high'
@@ -91,16 +92,21 @@ const Dashboard: React.FC = () => {
                           : 'bg-green-100 text-green-700'
                     }
                   `}
-                  >
-                    {t(`priority.${task.priority}`)}
-                  </span>
-                  <span className="text-sm text-gray-500">{task.dueDate}</span>
+                    >
+                      {t(`priority.${task.priority}`)}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      {task.dueDate}
+                    </span>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="p-4 text-center text-gray-500">
+                {t('noTasks')}
               </div>
-            ))
-          ) : (
-            <div className="p-4 text-center text-gray-500">{t('noTasks')}</div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

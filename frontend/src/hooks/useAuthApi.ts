@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import {
   LoginCredentials,
   RegisterData,
   AuthResponse,
 } from '../types/auth.types';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { httpClient } from '../utils/httpClient';
 
 interface AuthApiState {
   loading: boolean;
@@ -30,8 +29,8 @@ export const useAuthApi = () => {
   const registerUser = async (data: RegisterData): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await axios.post<AuthResponse>(
-        `${API_URL}/auth/register`,
+      const response = await httpClient.post<AuthResponse>(
+        '/auth/register',
         data,
       );
       login(response.data);
@@ -47,8 +46,8 @@ export const useAuthApi = () => {
   const loginUser = async (credentials: LoginCredentials): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await axios.post<AuthResponse>(
-        `${API_URL}/auth/login`,
+      const response = await httpClient.post<AuthResponse>(
+        '/auth/login',
         credentials,
       );
       login(response.data);

@@ -3,6 +3,11 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
+  bio: string;
+  phoneNumber: string;
+  role: string;
+  address: string;
+  company: string;
 }
 
 export interface AuthResponse {
