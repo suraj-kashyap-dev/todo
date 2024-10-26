@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Upload, Trash, FileText } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/Dialog';
 import { MediaFile } from '../types/media.types';
@@ -14,9 +13,6 @@ interface MediaManagerProps {
 }
 
 const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaManagerProps) => {
-  const [files, setFiles] = useState<MediaFile[]>([]);
-  const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
-
   const { 
     getMedia,
     loading,
@@ -89,7 +85,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
             {media?.map(file => (
               <div
                 key={file.id}
-                className={`relative group border rounded-lg p-2 cursor-pointer transition-all ${selectedFiles.has(file.id) ? 'border-blue-500 bg-blue-50' : 'hover:border-gray-300'
+                className={`relative group border rounded-lg p-2 cursor-pointer transition-all'
                   }`}
                 onClick={() => handleFileSelect(file)}
               >
@@ -123,24 +119,6 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
                 </button>
               </div>
             ))}
-          </div>
-        )}
-
-        {multiple && (
-          <div className="flex items-center justify-between border-t p-4">
-            <div>{selectedFiles.size} files selected</div>
-            <button
-              className="rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
-              onClick={() => {
-                const selectedMediaFiles = files.filter(f => selectedFiles.has(f.id));
-                if (onSelect) {
-                  selectedMediaFiles.forEach(file => onSelect(file));
-                }
-                onClose();
-              }}
-            >
-              Select Files
-            </button>
           </div>
         )}
       </DialogContent>
