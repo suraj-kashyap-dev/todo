@@ -11,7 +11,6 @@ import { useProfileApi } from '../hooks/useProfileApi';
 import { showToast } from '../utils/toast';
 import { User } from '../types/auth.types';
 import { useTranslation } from 'react-i18next';
-import Loading from '../components/Loading';
 
 const initialValues = {
   firstName: '',
@@ -136,7 +135,7 @@ const Profile = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="flex flex-col gap-1">
-                    <Label htmlFor="firstName">First Name</Label>
+                    <Label htmlFor="firstName" className='required'>First Name</Label>
                     <Input
                       id="firstName"
                       name="firstName"
@@ -152,7 +151,7 @@ const Profile = () => {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <Label htmlFor="lastName">Last Name</Label>
+                    <Label htmlFor="lastName" className='required'>Last Name</Label>
                     <Input
                       id="lastName"
                       name="lastName"
@@ -168,7 +167,7 @@ const Profile = () => {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className='required'>Email</Label>
                     <Input
                       id="email"
                       name="email"
@@ -184,7 +183,7 @@ const Profile = () => {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Label htmlFor="phoneNumber" className='required'>Phone Number</Label>
                     <Input
                       id="phoneNumber"
                       name="phoneNumber"
