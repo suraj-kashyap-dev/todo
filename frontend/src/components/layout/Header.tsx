@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import Dropdown from '../ui/Dropdown';
 import logo from '../../assets/logo.png';
+import Workspace from './Workspace';
+import WorkspaceSwitcher from './WorkspaceSwitcher';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -31,10 +33,14 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           >
             <Menu className="h-6 w-6" />
           </button>
-          <Link to="/" className="select-none text-xl font-bold">
-            {/* {t('appName')} */}
-            <img src={logo} alt="" className='h-14' />
-          </Link>
+
+          <div className='flex items-center justify-center gap-4'>
+            <Link to="/" className="select-none text-xl font-bold">
+              <img src={logo} alt="" className='h-14' />
+            </Link>
+
+            <WorkspaceSwitcher />
+          </div>
         </div>
 
         <div className="mx-4 hidden max-w-md flex-1 items-center md:flex">
@@ -47,13 +53,11 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             />
           </div>
 
-          <button className="ml-2 rounded-lg p-2 hover:bg-gray-100">
-            <PlusCircleIcon className="h-5 w-5" />
-          </button>
+          <Workspace />
         </div>
 
         <div className="flex items-center gap-3">
-     
+
           <LanguageSwitcher />
           <button className="relative rounded-lg p-2 hover:bg-gray-100">
             <Bell className="h-5 w-5" />
