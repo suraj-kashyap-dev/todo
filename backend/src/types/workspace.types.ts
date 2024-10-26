@@ -4,14 +4,17 @@
 export interface IWorkspace {
     _id: string,
     name: string,
+    image: string,
     userId: string,
+    createdAt: Date,
 }
 
 /**
  * User Input.
  */
 export interface IWorkspaceInput {
- name: string, 
+ name: string,
+ image: string
 }
 
 /**
@@ -20,5 +23,6 @@ export interface IWorkspaceInput {
 export interface IWorkspaceResponse {
     id: string,
     name: string,
+    image: string | null
     userId: string,
 }

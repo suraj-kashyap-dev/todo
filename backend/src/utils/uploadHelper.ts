@@ -1,7 +1,6 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import Media from '../models/media.model';
 import { Request } from 'express';
 import { env } from '../config/env';
 

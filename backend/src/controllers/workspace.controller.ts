@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Workspace from "../models/workspace.model";
-import { IWorkspace, IWorkspaceResponse } from "@/types/workspace.types";
+import { IWorkspace, IWorkspaceResponse } from "../types/workspace.types";
 
 /**
  * Create a new workspace.
@@ -20,6 +20,7 @@ export const store = async (
 
         const workspace = new Workspace({ 
             name, 
+            image: request.file?.path,
             userId: request.userId,
         });
 
@@ -28,6 +29,7 @@ export const store = async (
         return response.status(201).json({
             id: savedWorkspace._id,
             name: savedWorkspace.name,
+            image: savedWorkspace.image,
             userId: savedWorkspace.userId,
         });
     } catch (errors) {
@@ -46,6 +48,8 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
             id: workspace._id,
             name: workspace.name,
             userId: workspace.userId,
+            image: workspace.image,
+            createdAt: workspace.createdAt,
         }));
 
         return res.status(200).json(formattedWorkspaces);
