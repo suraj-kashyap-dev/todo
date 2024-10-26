@@ -1,16 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, Trash, FileText } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/Dialog';
-
-interface MediaFile {
-  id: string;
-  filename: string;
-  originalname: string;
-  path: string;
-  size: number;
-  mimetype: string;
-  createdAt: Date;
-}
+import { MediaFile } from '../types/media.types';
+import { useMediaApi } from '../hooks/useMediaApi';
 
 interface MediaManagerProps {
   isOpen: boolean;
@@ -25,24 +17,20 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  // Fetch existing files
-  const fetchFiles = useCallback(async () => {
-    try {
-      const response = await fetch('/api/media');
-      const data = await response.json();
-      setFiles(data);
-    } catch (error) {
-      console.error('Error fetching files:', error);
-    }
-  }, []);
+  const { getMedia, error, loading, media } = useMediaApi();
 
   useEffect(() => {
-    if (isOpen) {
-      fetchFiles();
-    }
-  }, [isOpen, fetchFiles]);
+    if (isOpen) getMedia();
+  }, [isOpen]);
 
-  // Handle file upload
+  useEffect(() => {
+    if (media) setFiles(media);
+  }, [media]);
+
+  useEffect(() => {
+    if (error) console.log(error);
+  }, [error]);
+
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFiles = event.target.files;
     if (!uploadedFiles) return;
@@ -74,22 +62,10 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
     }
   };
 
-  // Handle file selection
   const handleFileSelect = (file: MediaFile) => {
-    if (multiple) {
-      setSelectedFiles(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(file.id)) {
-          newSet.delete(file.id);
-        } else {
-          newSet.add(file.id);
-        }
-        return newSet;
-      });
-    } else {
-      onSelect?.(file);
-      onClose();
-    }
+    onSelect?.(file);
+
+    onClose();
   };
 
   const handleFileDelete = async (fileId: string) => {
@@ -114,8 +90,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
         <DialogHeader>
           <DialogTitle>Media Manager</DialogTitle>
         </DialogHeader>
-        
-        {/* Upload Section */}
+
         <div className="border-b p-4">
           <label className="flex h-32 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition-colors hover:border-blue-500">
             <div className="flex flex-col items-center">
@@ -130,7 +105,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
               accept="image/*,application/pdf"
             />
           </label>
-          
+
           {isUploading && (
             <div className="mt-2">
               <div className="h-2 rounded-full bg-gray-200">
@@ -143,49 +118,60 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
           )}
         </div>
 
-        {/* Files Grid */}
-        <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
-          {files.map(file => (
-            <div
-              key={file.id}
-              className={`relative group border rounded-lg p-2 cursor-pointer transition-all ${
-                selectedFiles.has(file.id) ? 'border-blue-500 bg-blue-50' : 'hover:border-gray-300'
-              }`}
-              onClick={() => handleFileSelect(file)}
-            >
-              {file.mimetype.startsWith('image/') ? (
-                <div className="relative w-full pt-[100%]">
-                  <img
-                    src={file.path}
-                    alt={file.originalname}
-                    className="absolute inset-0 h-full w-full rounded object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="relative w-full pt-[100%]">
-                  <div className="absolute inset-0 flex items-center justify-center rounded bg-gray-100">
-                    <FileText className="h-8 w-8 text-gray-400" />
-                  </div>
-                </div>
-              )}
-              
-              <div className="mt-2 truncate text-sm">{file.originalname}</div>
-              
-              {/* Delete button */}
-              <button
-                className="absolute right-2 top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFileDelete(file.id);
-                }}
+        {
+          loading ? <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+            {Array(8).fill(0).map((_, index) => (
+              <div
+                key={index}
+                className="group relative animate-pulse cursor-pointer rounded-lg border p-2 transition-all"
               >
-                <Trash className="h-4 w-4" />
-              </button>
-            </div>
-          ))}
-        </div>
+                <div className="relative w-full animate-pulse rounded bg-gray-200 pt-[100%]">
+                  <div className="absolute inset-0 h-full w-full animate-[shimmer_1.5s_infinite] rounded bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+                </div>
+                <div className="mt-2 h-4 animate-pulse rounded bg-gray-200"></div>
+              </div>
+            ))}
+          </div> : <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+            {files.map(file => (
+              <div
+                key={file.id}
+                className={`relative group border rounded-lg p-2 cursor-pointer transition-all ${selectedFiles.has(file.id) ? 'border-blue-500 bg-blue-50' : 'hover:border-gray-300'
+                  }`}
+                onClick={() => handleFileSelect(file)}
+              >
+                {file.mimetype.startsWith('image/') ? (
+                  <div className="relative w-full pt-[100%]">
+                    <img
+                      src={`http://localhost:5000/${file.path}`}
+                      crossOrigin='anonymous'
+                      alt={file.originalname}
+                      className="absolute inset-0 h-full w-full rounded object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full pt-[100%]">
+                    <div className="absolute inset-0 flex items-center justify-center rounded bg-gray-100">
+                      <FileText className="h-8 w-8 text-gray-400" />
+                    </div>
+                  </div>
+                )}
 
-        {/* Footer */}
+                <div className="mt-2 truncate text-sm">{file.originalname}</div>
+
+                <button
+                  className="absolute right-2 top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFileDelete(file.id);
+                  }}
+                >
+                  <Trash className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        }
+
         {multiple && (
           <div className="flex items-center justify-between border-t p-4">
             <div>{selectedFiles.size} files selected</div>
@@ -193,7 +179,9 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
               className="rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
               onClick={() => {
                 const selectedMediaFiles = files.filter(f => selectedFiles.has(f.id));
-                onSelect?.(selectedMediaFiles[0]);
+                if (onSelect) {
+                  selectedMediaFiles.forEach(file => onSelect(file));
+                }
                 onClose();
               }}
             >
