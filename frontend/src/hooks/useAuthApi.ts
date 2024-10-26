@@ -7,6 +7,7 @@ import {
   AuthResponse,
 } from '../types/auth.types';
 import { httpClient } from '../utils/httpClient';
+import { API_USER_LOGIN, API_USER_REGISTER } from '../config/constant';
 
 interface AuthApiState {
   loading: boolean;
@@ -29,10 +30,8 @@ export const useAuthApi = () => {
   const registerUser = async (data: RegisterData): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await httpClient.post<AuthResponse>(
-        '/auth/register',
-        data,
-      );
+      const response = await httpClient.post<AuthResponse>(API_USER_REGISTER, data);
+
       login(response.data);
     } catch (error) {
       const errorMessage = handleError(error);
@@ -46,10 +45,8 @@ export const useAuthApi = () => {
   const loginUser = async (credentials: LoginCredentials): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await httpClient.post<AuthResponse>(
-        '/auth/login',
-        credentials,
-      );
+      const response = await httpClient.post<AuthResponse>(API_USER_LOGIN, credentials);
+
       login(response.data);
     } catch (error) {
       const errorMessage = handleError(error);

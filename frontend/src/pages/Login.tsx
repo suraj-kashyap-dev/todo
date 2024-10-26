@@ -12,6 +12,7 @@ import { Label } from '../components/ui/form-controls/Label';
 import { ErrorMessage } from '../components/ui/form-controls/ErrorMessage';
 import { LoginCredentials } from '../types/auth.types';
 import { showToast } from '../utils/toast';
+import logo from '../assets/logo.png';
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -61,7 +62,8 @@ const Login: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
+      <div className="flex flex-col items-center">
+        <img src={logo} alt="logo" className='h-20' />
         <h2 className="text-3xl font-bold">{t('login.title')}</h2>
         <p className="mt-2 text-gray-600">{t('login.description')}</p>
       </div>

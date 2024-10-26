@@ -17,6 +17,9 @@ import Profile from './pages/Profile';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Today = lazy(() => import('./pages/Today'));
+const Completed = lazy(() => import('./pages/Completed'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Settings = lazy(() => import('./pages/Settings'));
 const Important = lazy(() => import('./pages/Important'));
 const Example = lazy(() => import('./pages/Example'));
 const Login = lazy(() => import('./pages/Login'));
@@ -70,6 +73,9 @@ const App: React.FC = () => {
               <Route path="/today" element={<Today />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/important" element={<Important />} />
+              <Route path="/completed" element={<Completed />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Menu, Bell, Search, User, Power, Divide } from 'lucide-react';
+import { Menu, Bell, Search, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './Translator';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import Dropdown from '../ui/Dropdown';
+import logo from '../../assets/logo.png';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -31,7 +32,8 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             <Menu className="h-6 w-6" />
           </button>
           <Link to="/" className="select-none text-xl font-bold">
-            {t('appName')}
+            {/* {t('appName')} */}
+            <img src={logo} alt="" className='h-14' />
           </Link>
         </div>
 
