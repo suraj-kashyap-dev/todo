@@ -7,7 +7,7 @@ export const index = async (
     response: Response<IMediaFileResponse[] | IMessageResponse>
 ) => {
     try {
-        const files = await Media.find();
+        const files = await Media.find().sort({ createdAt: -1 });
 
         const fileResponses = files.map(file => ({
             id: file._id,

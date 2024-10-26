@@ -3,6 +3,7 @@ import { Upload, Trash, FileText } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/Dialog';
 import { MediaFile } from '../types/media.types';
 import { useMediaApi } from '../hooks/useMediaApi';
+import { showToast } from '../utils/toast';
 
 interface MediaManagerProps {
   isOpen: boolean;
@@ -14,10 +15,14 @@ interface MediaManagerProps {
 const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaManagerProps) => {
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
 
-  const { getMedia, error, loading, media } = useMediaApi();
+  const { 
+    getMedia,
+    error,
+    loading,
+    media,
+    storeMedia,
+  } = useMediaApi();
 
   useEffect(() => {
     if (isOpen) getMedia();
@@ -32,39 +37,18 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
   }, [error]);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFiles = event.target.files;
-    if (!uploadedFiles) return;
+    const files = event.target.files;
 
-    setIsUploading(true);
-    setUploadProgress(0);
-
-    const formData = new FormData();
-    Array.from(uploadedFiles).forEach(file => {
-      formData.append('files', file);
-    });
-
-    try {
-      const response = await fetch('/api/media/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) throw new Error('Upload failed');
-
-      const newFiles = await response.json();
-      setFiles(prev => [...newFiles, ...prev]);
-      setUploadProgress(100);
-    } catch (error) {
-      console.error('Error uploading files:', error);
-    } finally {
-      setIsUploading(false);
-      setUploadProgress(0);
+    if (!files) {
+      return;
     }
+
+    await storeMedia(files);
+    showToast('File uploaded successfully', { type: 'success' });
   };
 
   const handleFileSelect = (file: MediaFile) => {
     onSelect?.(file);
-
     onClose();
   };
 
@@ -105,21 +89,10 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
               accept="image/*,application/pdf"
             />
           </label>
-
-          {isUploading && (
-            <div className="mt-2">
-              <div className="h-2 rounded-full bg-gray-200">
-                <div
-                  className="h-2 rounded-full bg-blue-500 transition-all duration-300"
-                  style={{ width: `${uploadProgress}%` }}
-                />
-              </div>
-            </div>
-          )}
         </div>
 
-        {
-          loading ? <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+        {loading && !media ? (
+          <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
             {Array(8).fill(0).map((_, index) => (
               <div
                 key={index}
@@ -131,7 +104,9 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
                 <div className="mt-2 h-4 animate-pulse rounded bg-gray-200"></div>
               </div>
             ))}
-          </div> : <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+          </div>
+        ) : (
+          <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
             {files.map(file => (
               <div
                 key={file.id}
@@ -170,7 +145,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
               </div>
             ))}
           </div>
-        }
+        )}
 
         {multiple && (
           <div className="flex items-center justify-between border-t p-4">
