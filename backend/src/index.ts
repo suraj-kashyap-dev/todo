@@ -11,6 +11,7 @@ import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import tagRoutes from './routes/tag.routes';
 import mediaRoutes from './routes/media.routes';
+import workSpaceRoutes from './routes/workspace.routes';
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tags', tagRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/workspace', workSpaceRoutes);
 
 // Enable CORS specifically for static file routes and serve static files
 app.use('/uploads', cors({ origin: env.CORS_ORIGIN, credentials: true }), express.static('uploads'));
