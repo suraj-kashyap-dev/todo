@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import Media from '../models/media.model';
 import { Request } from 'express';
 import { env } from '../config/env';
 
@@ -9,7 +10,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 const uploadDir = env.MEIDA_UPLOAD_DIR;
 
-if (!fs.existsSync(uploadDir)) {
+if (! fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
@@ -30,6 +31,18 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilt
     cb(new Error('Invalid file type'));
   }
 };
+
+export const deleteFileFromDisk = (filename: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const filePath = path.join(uploadDir, filename);
+
+    fs.unlink(filePath, (err) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
+};
+
 
 export const upload = multer({
   storage,
