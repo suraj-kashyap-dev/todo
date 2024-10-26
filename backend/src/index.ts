@@ -1,4 +1,4 @@
-import express, { static } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -21,9 +21,9 @@ connectDB();
 app.use(helmet());
 app.use(cors({
   origin: env.CORS_ORIGIN,
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,29 +32,43 @@ app.use(compression());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes)
+app.use('/api/users', userRoutes);
 app.use('/api/tags', tagRoutes);
 app.use('/api/media', mediaRoutes);
 
-// Serve static files.
-app.use('/uploads', express.static('uploads'));
+// Enable CORS specifically for static file routes and serve static files
+app.use('/uploads', cors({ origin: env.CORS_ORIGIN, credentials: true }), express.static('uploads'));
 
-// Error handling
+// Error handling middleware
 app.use(errorHandler);
 
 // 404 handler
-app.use((req, res) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-const PORT = env.PORT;
+// Check for required environment variables
+const PORT = env.PORT || 5000;
+if (!PORT) {
+  console.error("Error: PORT is not defined in environment variables.");
+  process.exit(1);
+}
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running in ${env.NODE_ENV} mode on port ${PORT}`);
 });
 
+// Gracefully handle unhandled promise rejections
 process.on('unhandledRejection', (err: Error) => {
   console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+  console.error(err.name, err.message);
+  process.exit(1);
+});
+
+// Gracefully handle uncaught exceptions
+process.on('uncaughtException', (err: Error) => {
+  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.error(err.name, err.message);
   process.exit(1);
 });
