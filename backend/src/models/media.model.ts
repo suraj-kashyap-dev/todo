@@ -29,11 +29,7 @@ const mediaSchema = new Schema<IMedia>({
     createdAt: {
         type: Date,
         default: Date.now,
-    },
-    userId: {
-        type: String,
-        required: true,
-    },
+    }
 });
 
 mediaSchema.statics.findByTitle = function (title: string) {

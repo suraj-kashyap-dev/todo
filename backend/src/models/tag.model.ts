@@ -1,11 +1,14 @@
-import { Model, Schema, model } from 'mongoose';
+import { Model, Schema, model, Document, ObjectId } from 'mongoose';
 import { ITag } from '../types/tag.types';
 
-interface ITagModel extends Model<ITag> {
-    findByTitle(email: string): Promise<ITag | null>;
+export interface ITagDocument extends ITag, Document {
 }
 
-const tagsSchema = new Schema<ITag>({
+interface ITagModel extends Model<ITagDocument> {
+    findByTitle(email: string): Promise<ITagDocument | null>;
+}
+
+const tagsSchema = new Schema<ITagDocument>({
     title: {
         type: String,
         required: true,
@@ -29,6 +32,6 @@ tagsSchema.statics.findByTitle = function (title: string) {
     return this.findOne({ title });
 };
 
-const Tag = model<ITag, ITagModel>('Tags', tagsSchema);
+const Tag = model<ITagDocument, ITagModel>('Tags', tagsSchema);
 
 export default Tag;

@@ -22,6 +22,7 @@ export const store = async (
         const tag = await Tag.create(validatedData);
 
         return response.status(201).json({
+            id: tag._id,
             title: tag.title,
             status: tag.status,
             createdAt: tag.createdAt,

@@ -1,15 +1,26 @@
+/**
+ * Model.
+ */
 export interface ITag {
-    title: string,
-    status: boolean,
+    _id: string;
+    title: string;
+    status: boolean;
     createdAt: Date;
 }
 
+/**
+ * User Input.
+ */
 export interface ITagInput {
     title: string,
     status: boolean,
 }
 
+/**
+ * Api Response.
+ */
 export interface ITagResponse {
+    id: string,
     title: string,
     status: boolean,
     createdAt: Date,

@@ -1,12 +1,12 @@
+import { Types } from "mongoose";
+
 export interface IMedia {
-  _id: string;
   filename: string;
   originalname: string;
   path: string;
   size: number;
   mimetype: string;
   createdAt: Date;
-  userId: string;
 }
 
 export interface IMediaInput {
@@ -16,21 +16,16 @@ export interface IMediaInput {
   size: number;
   mimetype: string;
   createdAt: Date;
-  userId: string;
 }
 
 export interface IMediaFileResponse {
-  id: string;
-  message: string,
-  file: {
-    filename: string;
-    originalname: string;
-    path: string;
-    size: number;
-    mimetype: string;
-    createdAt: Date;
-    userId: string;
-  }
+  id: Types.ObjectId,
+  filename: string;
+  originalname: string;
+  path: string;
+  size: number;
+  mimetype: string;
+  createdAt: Date;
 }
 
 export interface UploadedFile {
