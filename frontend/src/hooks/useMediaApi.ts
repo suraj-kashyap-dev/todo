@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MediaFile } from "../types/media.types";
 import { AxiosError } from "axios";
-import { API_MEDIA_INDEX, API_MEDIA_STORE } from "../config/constant";
+import { API_MEDIA_DELETE, API_MEDIA_INDEX, API_MEDIA_STORE } from "../config/constant";
 import { httpClient } from "../utils/httpClient";
 
 interface MediaApiState {
@@ -40,6 +40,7 @@ export const useMediaApi = () => {
             setState((prev) => ({ ...prev, loading: false }));
         }
     }
+
     const storeMedia = async (fileList: FileList): Promise<void> => {
         try {
             setState((prev) => ({ ...prev, loading: true, error: null }));
@@ -66,9 +67,29 @@ export const useMediaApi = () => {
         }
     };
 
+    const destroyMedia = async (id: string): Promise<void> => {
+        try {
+            setState((prev) => ({ ...prev, loading: true, error: null }));
+    
+            await httpClient.delete(`${API_MEDIA_DELETE}/${id}`);
+    
+            setState((prev) => ({
+                ...prev,
+                media: prev.media ? prev.media.filter((item) => item.id !== id) : null,
+            }));
+        } catch (error) {
+            const errorMessage = handleError(error);
+            setState((prev) => ({ ...prev, error: errorMessage }));
+            throw error;
+        } finally {
+            setState((prev) => ({ ...prev, loading: false }));
+        }
+    };
+
     return {
         ...state,
         getMedia,
         storeMedia,
+        destroyMedia,
     }
 }

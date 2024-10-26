@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IMediaInput, IMediaFileResponse, IMessageResponse } from '../types/media.types';
 import Media from '../models/media.model';
+import { deleteFileFromDisk } from '../utils/uploadHelper';
 
 export const index = async (
     request: Request,
@@ -33,7 +34,7 @@ export const upload = async (
     try {
         const file = request.file;
 
-        if (! file) {
+        if (!file) {
             return response.status(400).json({ message: "File is required" });
         }
 
@@ -67,7 +68,7 @@ export const show = async (
     try {
         const file = await Media.findById(request.params.id);
 
-        if (! file) {
+        if (!file) {
             return response.status(404).json({ message: 'File not found' });
         }
 
@@ -85,7 +86,6 @@ export const show = async (
         response.status(500).json({ message: 'Failed to retrieve file' });
     }
 };
-
 export const destroy = async (
     request: Request<{ id: string }>,
     response: Response<IMessageResponse>
@@ -96,6 +96,8 @@ export const destroy = async (
         if (!file) {
             return response.status(404).json({ message: 'File not found' });
         }
+
+        await deleteFileFromDisk(file.filename);
 
         return response.status(200).json({ message: 'File deleted successfully' });
     } catch (error) {

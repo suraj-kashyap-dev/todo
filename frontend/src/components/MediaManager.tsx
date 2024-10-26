@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Upload, Trash, FileText } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/Dialog';
@@ -18,23 +19,15 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
 
   const { 
     getMedia,
-    error,
     loading,
     media,
     storeMedia,
+    destroyMedia,
   } = useMediaApi();
 
   useEffect(() => {
     if (isOpen) getMedia();
   }, [isOpen]);
-
-  useEffect(() => {
-    if (media) setFiles(media);
-  }, [media]);
-
-  useEffect(() => {
-    if (error) console.log(error);
-  }, [error]);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -49,24 +42,10 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
 
   const handleFileSelect = (file: MediaFile) => {
     onSelect?.(file);
+
     onClose();
   };
 
-  const handleFileDelete = async (fileId: string) => {
-    try {
-      await fetch(`/api/media/${fileId}`, {
-        method: 'DELETE',
-      });
-      setFiles(prev => prev.filter(f => f.id !== fileId));
-      setSelectedFiles(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(fileId);
-        return newSet;
-      });
-    } catch (error) {
-      console.error('Error deleting file:', error);
-    }
-  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -107,7 +86,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
           </div>
         ) : (
           <div className="grid flex-1 grid-cols-2 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
-            {files.map(file => (
+            {media?.map(file => (
               <div
                 key={file.id}
                 className={`relative group border rounded-lg p-2 cursor-pointer transition-all ${selectedFiles.has(file.id) ? 'border-blue-500 bg-blue-50' : 'hover:border-gray-300'
@@ -137,7 +116,7 @@ const MediaManager = ({ isOpen, onClose, onSelect, multiple = false }: MediaMana
                   className="absolute right-2 top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleFileDelete(file.id);
+                    destroyMedia(file.id);
                   }}
                 >
                   <Trash className="h-4 w-4" />
