@@ -1,4 +1,4 @@
-import { Model, Document, Schema, model } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
 import { ITag } from '../types/tag.types';
 
 interface ITagModel extends Model<ITag> {

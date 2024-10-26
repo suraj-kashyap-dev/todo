@@ -10,6 +10,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.string().default('24h'),
   CORS_ORIGIN: z.string().default('http://localhost:3000'),
+  MEIDA_UPLOAD_DIR: z.string().default('uploads'),
 });
 
 const result = envSchema.safeParse(process.env);

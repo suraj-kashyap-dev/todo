@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { static } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -10,6 +10,7 @@ import { errorHandler } from './middleware/error.middleware';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import tagRoutes from './routes/tag.routes';
+import mediaRoutes from './routes/media.routes';
 
 const app = express();
 
@@ -33,6 +34,10 @@ app.use(compression());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes)
 app.use('/api/tags', tagRoutes);
+app.use('/api/media', mediaRoutes);
+
+// Serve static files.
+app.use('/uploads', express.static('uploads'));
 
 // Error handling
 app.use(errorHandler);
