@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/user.model';
 import { registerSchema, loginSchema } from '../validators/auth.validator';
 import { IAuthResponse, IUserInput, ILoginInput } from '../types/user.types';
 

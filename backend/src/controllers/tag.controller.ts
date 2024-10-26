@@ -4,7 +4,7 @@ import {
 } from 'express';
 import { ITagInput, ITagResponse } from '../types/tag.types';
 import { tagSchema } from '../validators/tag.validator';
-import Tag from '../models/Tag';
+import Tag from '../models/tag.model';
 
 export const store = async (
     request: Request<{}, {}, ITagInput>,

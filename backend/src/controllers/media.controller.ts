@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IMedia, IMediaInput, IMediaFileResponse, IMessageResponse } from '../types/media.types';
-import Media from '../models/Media';
+import Media from '../models/media.model';
 
 export const index = async (
     request: Request,
