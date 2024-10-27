@@ -77,7 +77,7 @@ const App: React.FC = () => {
                 element={<WorkspaceCreate />}
               />
               <Route
-                path="/dashboard/workspaces/:id"
+                path="/dashboard/workspaces/:workspaceId"
                 element={<WorkspaceEdit />}
               />
               <Route path="/dashboard/profile" element={<Profile />} />

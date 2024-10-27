@@ -18,7 +18,7 @@ export const store = async (
         let exits = await Workspace.findOne({ name });
 
         if (exits) {
-            return response.status(201).json({message: "Already exits workspace"});
+            return response.status(500).json({message: "Already exits workspace"});
         }
 
         const workspace = new Workspace({ 

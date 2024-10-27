@@ -66,6 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           </button>
         </div>
 
+        {/* Workspace Switcher */}
         <WorkspaceSwitcher />
 
         <Divider className="my-4" />

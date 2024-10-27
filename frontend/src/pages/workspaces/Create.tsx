@@ -7,6 +7,7 @@ import { showToast } from '../../utils/toast';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Label } from '../../components/ui/form-controls/Label';
 import { Button } from '../../components/ui/form-controls/Button';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -17,6 +18,7 @@ const validationSchema = Yup.object({
 const Create: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { storeWorkspace, loading, error } = useWorkspaceApi();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +31,12 @@ const Create: React.FC = () => {
         name: values.name,
         file: values.image,
       });
-      showToast('Workspace created successfully');
+
+      showToast('Workspace created successfully', {
+        type: "success",
+      });
+
+      navigate('/dashboard');
     },
   });
 
@@ -54,7 +61,10 @@ const Create: React.FC = () => {
 
   const handleEditImage = () => {
     const input = document.getElementById('image') as HTMLInputElement;
-    input?.click();
+
+    if (input) {
+      input.click();
+    }
   };
 
   return (
