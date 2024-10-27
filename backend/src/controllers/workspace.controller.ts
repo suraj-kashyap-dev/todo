@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Workspace from "../models/workspace.model";
 import { IWorkspace, IWorkspaceResponse } from "../types/workspace.types";
+import Member from "../models/member.models";
 
 /**
  * Create a new workspace.
@@ -24,7 +25,14 @@ export const store = async (
             userId: request.userId,
         });
 
+        const member = new Member({
+            userId: workspace.userId,
+            workspaceId: workspace.id,
+            role: "admin",
+        })
+
         const savedWorkspace = await workspace.save();
+        const savedMember = await member.save();
         
         return response.status(201).json({
             id: savedWorkspace._id,
@@ -42,8 +50,12 @@ export const store = async (
  */
 export const index = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const workspaces = await Workspace.find();
-        
+        const members = await Member.find({ userId: req.userId });
+
+        const workspaceIds = members.map((member) => member.workspaceId);
+
+        const workspaces = await Workspace.find({ _id: { $in: workspaceIds } });
+
         const formattedWorkspaces = workspaces.map((workspace) => ({
             id: workspace._id,
             name: workspace.name,
@@ -57,7 +69,6 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
         return res.status(500).json({ message: "Failed to fetch workspaces", error });
     }
 };
-
 /**
  * Get a single workspace by ID.
  */
@@ -81,30 +92,31 @@ export const show = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
- * Update a workspace by ID.
+ * Update a member by ID.
  */
 export const update = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
-        const { name } = req.body;
+        const { userId, workspaceId, role } = req.body;
 
-        const updatedWorkspace = await Workspace.findByIdAndUpdate(
+        const updatedMember = await Member.findByIdAndUpdate(
             id,
-            { name },
+            { userId, workspaceId, role },
             { new: true }
         );
 
-        if (!updatedWorkspace) {
-            return res.status(404).json({ message: "Workspace not found" });
+        if (!updatedMember) {
+            return res.status(404).json({ message: "Member not found" });
         }
 
         return res.status(200).json({
-            id: updatedWorkspace._id,
-            name: updatedWorkspace.name,
-            userId: updatedWorkspace.userId,
+            id: updatedMember._id,
+            userId: updatedMember.userId,
+            workspaceId: updatedMember.workspaceId,
+            role: updatedMember.role,
         });
     } catch (error) {
-        return res.status(500).json({ message: "Failed to update workspace", error });
+        return res.status(500).json({ message: "Failed to update member", error });
     }
 };
 
