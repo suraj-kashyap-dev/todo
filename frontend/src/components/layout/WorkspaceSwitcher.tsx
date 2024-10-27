@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from '../ui/Dropdown';
-import { BriefcaseBusiness } from 'lucide-react';
 import { useWorkspaceApi } from '../../hooks/useWorkspaceApi';
 import { showToast } from '../../utils/toast';
 import { Workspace } from '../../types/workspace.types';
 
 const WorkspaceSwitcher: React.FC = () => {
-    const { workspace, getWorkspace, loading, error } = useWorkspaceApi();
+    const { workspace, getWorkspace, error } = useWorkspaceApi();
     const [selectedWorkspace, setSelectedWorkspace] = useState<Workspace>();
 
     useEffect(() => {
@@ -29,8 +28,19 @@ const WorkspaceSwitcher: React.FC = () => {
     return (
         <Dropdown position="bottom-right">
             <Dropdown.Toggle>
-                <div className="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-100">
-                    <BriefcaseBusiness className="h-5 w-5" />
+                <div className="flex min-w-[211px] items-center gap-2 rounded-lg p-2 hover:bg-gray-100">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+                        {selectedWorkspace?.image ? (
+                            <img
+                                src={`http://localhost:5000/${selectedWorkspace.image}`}
+                                alt={selectedWorkspace.name}
+                                className="h-full w-full rounded-full border border-gray-300 object-cover"
+                                crossOrigin="anonymous"
+                            />
+                        ) : (
+                            (selectedWorkspace?.name ?? "N").charAt(0).toUpperCase()
+                        )}
+                    </span>
                     <span className="hidden sm:block">{selectedWorkspace?.name ?? 'No Workspace Selected'}</span>
                 </div>
             </Dropdown.Toggle>
