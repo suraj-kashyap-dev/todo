@@ -52,12 +52,12 @@ const WorkspaceSwitcher: React.FC = () => {
       <Dropdown.Toggle>
         <div className="flex min-w-[225px] cursor-pointer select-none items-center rounded-lg bg-gray-200 p-2 hover:bg-gray-300">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-amber-100 text-amber-600">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-amber-100 text-amber-600">
               {selectedWorkspace?.image ? (
                 <img
                   src={`http://localhost:5000/${selectedWorkspace.image}`}
                   alt={selectedWorkspace.name}
-                  className="h-full w-full rounded-sm object-cover"
+                  className="h-full w-full rounded-md object-cover"
                   crossOrigin="anonymous"
                 />
               ) : (
@@ -80,12 +80,12 @@ const WorkspaceSwitcher: React.FC = () => {
               onClick={() => changeWorkspace(workspaceItem)}
               className="flex w-full select-none items-center gap-2 border-b p-3 transition-colors last:border-b-0 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-amber-100 text-amber-600">
+              <span className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-100 text-amber-600">
                 {workspaceItem.image ? (
                   <img
                     src={`http://localhost:5000/${workspaceItem.image}`}
                     alt={workspaceItem.name}
-                    className="h-full w-full rounded-sm object-cover"
+                    className="h-full w-full rounded-md object-cover"
                     crossOrigin="anonymous"
                   />
                 ) : (
