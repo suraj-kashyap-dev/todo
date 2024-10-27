@@ -8,6 +8,7 @@ const WorkspaceSchema = new Schema<IWorkspaceDocument>({
     name: { type: String, required: true },
     image: { type: String, required: false },
     userId: { type: String, required: true },
+    inviteCode: { type: String, required: true },
     createdAt: {
         type: Date,
         default: new Date,

@@ -7,7 +7,7 @@ import {
     update,
     destroy,
 } from "../controllers/workspace.controller";
-import { uploadSingle } from '../utils/uploadHelper';
+import { uploadSingle } from '../helpers/uploadHelper';
 
 export const router = express.Router();
 

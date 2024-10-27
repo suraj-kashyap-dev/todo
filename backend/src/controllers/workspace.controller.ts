@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Workspace from "../models/workspace.model";
 import { IWorkspace, IWorkspaceResponse } from "../types/workspace.types";
 import Member from "../models/member.models";
+import { generateInviteCode } from "../helpers/utils";
 
 /**
  * Create a new workspace.
@@ -23,16 +24,19 @@ export const store = async (
             name, 
             image: request.file?.path,
             userId: request.userId,
+            inviteCode: generateInviteCode(8),
         });
 
-        const member = new Member({
+        const savedWorkspace = await workspace.save();
+
+        /**
+         * Save Member
+         */
+        new Member({
             userId: workspace.userId,
             workspaceId: workspace.id,
             role: "admin",
-        })
-
-        const savedWorkspace = await workspace.save();
-        const savedMember = await member.save();
+        }).save()
         
         return response.status(201).json({
             id: savedWorkspace._id,
@@ -41,6 +45,8 @@ export const store = async (
             userId: savedWorkspace.userId,
         });
     } catch (errors) {
+        console.log(errors);
+        
         return response.status(500).json({ message: "Failed to create workspace", errors });
     }
 };

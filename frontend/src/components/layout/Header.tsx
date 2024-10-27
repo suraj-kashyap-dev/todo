@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Bell, Search, User, PlusCircleIcon } from 'lucide-react';
+import { Menu, Bell, Search, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './Translator';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,10 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               <img src={logo} alt="" className='h-14' />
             </Link>
 
+            <div className='flex'>
             <WorkspaceSwitcher />
+            <Workspace />
+            </div>
           </div>
         </div>
 
@@ -53,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             />
           </div>
 
-          <Workspace />
+          
         </div>
 
         <div className="flex items-center gap-3">

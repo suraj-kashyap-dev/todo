@@ -6,6 +6,7 @@ export interface IWorkspace {
     name: string,
     image: string,
     userId: string,
+    inviteCode: string,
     createdAt: Date,
 }
 
