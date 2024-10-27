@@ -56,10 +56,7 @@ const Profile = () => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (
-      values,
-      { setSubmitting }
-    ) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
         await updateProfile(values);
         showToast('Profile updated successfully', { type: 'success' });
@@ -89,10 +86,17 @@ const Profile = () => {
 
   return (
     <React.Fragment>
-      <form onSubmit={handleSubmit} className="w-full space-y-8 rounded-lg bg-white p-8 shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full space-y-8 rounded-lg bg-white p-8 shadow-md"
+      >
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Create Workspace</h2>
-          <p className="mt-2 text-sm text-gray-500">Fill in the details below to create a new workspace.</p>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Create Workspace
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Fill in the details below to create a new workspace.
+          </p>
         </div>
 
         <div className="space-y-6">
@@ -100,7 +104,9 @@ const Profile = () => {
           <div className="flex flex-col items-center">
             <div className="relative">
               <img
-                src={'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}
+                src={
+                  'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+                }
                 alt="Profile"
                 className="h-32 w-32 rounded-full object-cover"
               />
@@ -117,7 +123,9 @@ const Profile = () => {
           <div className="flex-1">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="flex flex-col">
-                <Label htmlFor="firstName" className="required">First Name</Label>
+                <Label htmlFor="firstName" className="required">
+                  First Name
+                </Label>
                 <Input
                   id="firstName"
                   name="firstName"
@@ -127,11 +135,15 @@ const Profile = () => {
                   value={values.firstName}
                   className={`${touched.firstName && errors.firstName ? 'border-red-500' : ''}`}
                 />
-                {touched.firstName && errors.firstName && <ErrorMessage error={errors.firstName} />}
+                {touched.firstName && errors.firstName && (
+                  <ErrorMessage error={errors.firstName} />
+                )}
               </div>
 
               <div className="flex flex-col">
-                <Label htmlFor="lastName" className="required">Last Name</Label>
+                <Label htmlFor="lastName" className="required">
+                  Last Name
+                </Label>
                 <Input
                   id="lastName"
                   name="lastName"
@@ -141,11 +153,15 @@ const Profile = () => {
                   value={values.lastName}
                   className={`${touched.lastName && errors.lastName ? 'border-red-500' : ''}`}
                 />
-                {touched.lastName && errors.lastName && <ErrorMessage error={errors.lastName} />}
+                {touched.lastName && errors.lastName && (
+                  <ErrorMessage error={errors.lastName} />
+                )}
               </div>
 
               <div className="flex flex-col">
-                <Label htmlFor="email" className="required">Email</Label>
+                <Label htmlFor="email" className="required">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -155,11 +171,15 @@ const Profile = () => {
                   value={values.email}
                   className={`${touched.email && errors.email ? 'border-red-500' : ''}`}
                 />
-                {touched.email && errors.email && <ErrorMessage error={errors.email} />}
+                {touched.email && errors.email && (
+                  <ErrorMessage error={errors.email} />
+                )}
               </div>
 
               <div className="flex flex-col">
-                <Label htmlFor="phoneNumber" className="required">Phone Number</Label>
+                <Label htmlFor="phoneNumber" className="required">
+                  Phone Number
+                </Label>
                 <Input
                   id="phoneNumber"
                   name="phoneNumber"
@@ -169,7 +189,9 @@ const Profile = () => {
                   value={values.phoneNumber}
                   className={`${touched.phoneNumber && errors.phoneNumber ? 'border-red-500' : ''}`}
                 />
-                {touched.phoneNumber && errors.phoneNumber && <ErrorMessage error={errors.phoneNumber} />}
+                {touched.phoneNumber && errors.phoneNumber && (
+                  <ErrorMessage error={errors.phoneNumber} />
+                )}
               </div>
 
               <div className="flex flex-col">
@@ -183,7 +205,9 @@ const Profile = () => {
                   value={values.address}
                   className={`${touched.address && errors.address ? 'border-red-500' : ''}`}
                 />
-                {touched.address && errors.address && <ErrorMessage error={errors.address} />}
+                {touched.address && errors.address && (
+                  <ErrorMessage error={errors.address} />
+                )}
               </div>
 
               <div className="flex flex-col">
@@ -197,7 +221,9 @@ const Profile = () => {
                   value={values.company}
                   className={`${touched.company && errors.company ? 'border-red-500' : ''}`}
                 />
-                {touched.company && errors.company && <ErrorMessage error={errors.company} />}
+                {touched.company && errors.company && (
+                  <ErrorMessage error={errors.company} />
+                )}
               </div>
             </div>
 
@@ -214,7 +240,7 @@ const Profile = () => {
               />
               {touched.bio && errors.bio && <ErrorMessage error={errors.bio} />}
             </div>
-          </div>  
+          </div>
         </div>
 
         {/* Submit Button */}

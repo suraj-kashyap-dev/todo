@@ -72,9 +72,15 @@ const App: React.FC = () => {
               <Route path="/dashboard/tasks" element={<Task />} />
               <Route path="/dashboard/settings" element={<Settings />} />
               <Route path="/dashboard/members" element={<Members />} />
-              <Route path='/dashboard/workspaces/create' element={<WorkspaceCreate />} />
-              <Route path='/dashboard/workspaces/:id' element={<WorkspaceEdit />} />
-              <Route path='/dashboard/profile' element={<Profile />} />
+              <Route
+                path="/dashboard/workspaces/create"
+                element={<WorkspaceCreate />}
+              />
+              <Route
+                path="/dashboard/workspaces/:id"
+                element={<WorkspaceEdit />}
+              />
+              <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

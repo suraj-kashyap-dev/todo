@@ -19,13 +19,29 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const { t } = useTranslation();
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const navItems = [
-    { icon: <Home className="h-5 w-5" />, label: t('dashboard'), path: '/dashboard' },
-    { icon: <CircleCheckBig className="h-5 w-5" />, label: t('My Tasks'), path: '/dashboard/tasks' },
-    { icon: <Settings className="h-5 w-5" />, label: t('settings'), path: '/dashboard/settings' },
-    { icon: <UsersRound className="h-5 w-5" />, label: t('Members'), path: '/dashboard/members' },
+    {
+      icon: <Home className="h-5 w-5" />,
+      label: t('dashboard'),
+      path: '/dashboard',
+    },
+    {
+      icon: <CircleCheckBig className="h-5 w-5" />,
+      label: t('My Tasks'),
+      path: '/dashboard/tasks',
+    },
+    {
+      icon: <Settings className="h-5 w-5" />,
+      label: t('settings'),
+      path: '/dashboard/settings',
+    },
+    {
+      icon: <UsersRound className="h-5 w-5" />,
+      label: t('Members'),
+      path: '/dashboard/members',
+    },
   ];
 
   return (

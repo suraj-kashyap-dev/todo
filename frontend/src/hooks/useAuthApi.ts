@@ -30,7 +30,10 @@ export const useAuthApi = () => {
   const registerUser = async (data: RegisterData): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await httpClient.post<AuthResponse>(API_USER_REGISTER, data);
+      const response = await httpClient.post<AuthResponse>(
+        API_USER_REGISTER,
+        data,
+      );
 
       login(response.data);
     } catch (error) {
@@ -45,7 +48,10 @@ export const useAuthApi = () => {
   const loginUser = async (credentials: LoginCredentials): Promise<void> => {
     try {
       setState({ loading: true, error: null });
-      const response = await httpClient.post<AuthResponse>(API_USER_LOGIN, credentials);
+      const response = await httpClient.post<AuthResponse>(
+        API_USER_LOGIN,
+        credentials,
+      );
 
       login(response.data);
     } catch (error) {

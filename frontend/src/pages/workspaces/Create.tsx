@@ -29,7 +29,7 @@ const Create: React.FC = () => {
         name: values.name,
         file: values.image,
       });
-      showToast("Workspace created successfully");
+      showToast('Workspace created successfully');
     },
   });
 
@@ -59,16 +59,26 @@ const Create: React.FC = () => {
 
   return (
     <React.Fragment>
-      <form onSubmit={formik.handleSubmit} className="w-full space-y-8 rounded-lg bg-white p-8 shadow-md">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="w-full space-y-8 rounded-lg bg-white p-8 shadow-md"
+      >
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Create Workspace</h2>
-          <p className="mt-2 text-sm text-gray-500">Fill in the details below to create a new workspace.</p>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Create Workspace
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Fill in the details below to create a new workspace.
+          </p>
         </div>
 
         <div className="space-y-6">
           {/* Image Upload Section */}
           <div className="flex items-center gap-6">
-            <Label htmlFor="image" className="block cursor-pointer text-sm font-medium text-gray-700">
+            <Label
+              htmlFor="image"
+              className="block cursor-pointer text-sm font-medium text-gray-700"
+            >
               {imagePreview ? 'Edit Image' : 'Add Image'}
             </Label>
             <div className="flex items-center">
@@ -95,10 +105,18 @@ const Create: React.FC = () => {
                     className="h-full w-full rounded-lg object-cover"
                   />
                   <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black bg-opacity-50 opacity-0 transition-opacity hover:opacity-100">
-                    <button type="button" onClick={handleEditImage} className="mx-2 text-white">
+                    <button
+                      type="button"
+                      onClick={handleEditImage}
+                      className="mx-2 text-white"
+                    >
                       <Edit className="h-6 w-6" />
                     </button>
-                    <button type="button" onClick={handleDeleteImage} className="mx-2 text-white">
+                    <button
+                      type="button"
+                      onClick={handleDeleteImage}
+                      className="mx-2 text-white"
+                    >
                       <Trash className="h-6 w-6" />
                     </button>
                   </div>
@@ -109,7 +127,12 @@ const Create: React.FC = () => {
 
           {/* Name Input */}
           <div>
-            <Label htmlFor="name" className="required block text-sm font-medium text-gray-700">Workspace Name</Label>
+            <Label
+              htmlFor="name"
+              className="required block text-sm font-medium text-gray-700"
+            >
+              Workspace Name
+            </Label>
             <Input
               type="text"
               id="name"

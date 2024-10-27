@@ -64,7 +64,7 @@ const Login: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col items-center">
-        <img src={logo} alt="logo" className='h-20' />
+        <img src={logo} alt="logo" className="h-20" />
         <h2 className="text-3xl font-bold">{t('login.title')}</h2>
         <p className="mt-2 text-gray-600">{t('login.description')}</p>
       </div>

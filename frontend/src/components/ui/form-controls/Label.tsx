@@ -1,10 +1,14 @@
 interface LabelProps {
   htmlFor: string;
-  className?: string, 
+  className?: string;
   children: React.ReactNode;
 }
 
-export const Label: React.FC<LabelProps> = ({ htmlFor, className, children }) => {
+export const Label: React.FC<LabelProps> = ({
+  htmlFor,
+  className,
+  children,
+}) => {
   return (
     <label
       htmlFor={htmlFor}
