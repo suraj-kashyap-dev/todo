@@ -4,38 +4,28 @@ import { useWorkspaceApi } from '../../hooks/useWorkspaceApi';
 import { showToast } from '../../utils/toast';
 import { Workspace as WorkspaceType } from '../../types/workspace.types';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const WorkspaceSwitcher: React.FC = () => {
     const { workspace, getWorkspace, error } = useWorkspaceApi();
     const [selectedWorkspace, setSelectedWorkspace] = useState<WorkspaceType | null>(null);
     const navigate = useNavigate();
+    const { id} = useParams<{ id: string }>();
 
     useEffect(() => {
         getWorkspace();
     }, []);
 
     useEffect(() => {
-        const storedWorkspaceId = localStorage.getItem('selectedWorkspaceId');
+        if (workspace && id) {
+            const initialWorkspace = workspace.find((ws) => ws.id === id);
 
-        if (workspace && workspace.length > 0) {
-            if (storedWorkspaceId) {
-                const foundWorkspace = workspace.find(ws => ws.id === storedWorkspaceId);
-
-                if (foundWorkspace) {
-                    setSelectedWorkspace(foundWorkspace);
-                    navigate(`/dashboard/workspaces/${storedWorkspaceId}`);
-                }
-            } else if (!selectedWorkspace) {
-                const firstWorkspaceId = workspace[0].id;
-
-                setSelectedWorkspace(workspace[0]);
-                navigate(`/dashboard/workspaces/${firstWorkspaceId}`);
-                localStorage.setItem('selectedWorkspaceId', firstWorkspaceId);
+            if (initialWorkspace) {
+                setSelectedWorkspace(initialWorkspace);
+                localStorage.setItem('selectedWorkspaceId', initialWorkspace.id);
             }
         }
-    }, [workspace, navigate, selectedWorkspace]);
-
+    }, [workspace, id]);
 
     useEffect(() => {
         if (error) showToast(error, { type: 'error' });
@@ -69,13 +59,10 @@ const WorkspaceSwitcher: React.FC = () => {
                                 (selectedWorkspace?.name ?? "N").charAt(0).toUpperCase()
                             )}
                         </span>
-
                         <span className="text-sm font-medium text-gray-700">
                             {selectedWorkspace?.name ?? 'No Workspace Selected'}
                         </span>
                     </div>
-
-                    {/* Dropdown icon positioned to the right */}
                     <ChevronsUpDown className="ml-auto h-4 w-4 text-gray-500" />
                 </div>
             </Dropdown.Toggle>

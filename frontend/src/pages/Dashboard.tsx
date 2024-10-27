@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="mx-auto bg-gray-100 px-6 py-6">
+    <React.Fragment>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">{t('dashboard')}</h2>
         <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
@@ -109,7 +109,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

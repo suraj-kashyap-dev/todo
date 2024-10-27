@@ -3,6 +3,7 @@ import Workspace from "../models/workspace.model";
 import { IWorkspace, IWorkspaceResponse } from "../types/workspace.types";
 import Member from "../models/member.models";
 import { generateInviteCode } from "../helpers/utils";
+import { toNamespacedPath } from "path";
 
 /**
  * Create a new workspace.
@@ -24,7 +25,7 @@ export const store = async (
             name, 
             image: request.file?.path,
             userId: request.userId,
-            inviteCode: generateInviteCode(8),
+            inviteCode: generateInviteCode(),
         });
 
         const savedWorkspace = await workspace.save();
@@ -91,6 +92,7 @@ export const show = async (req: Request, res: Response): Promise<Response> => {
             id: workspace._id,
             name: workspace.name,
             userId: workspace.userId,
+            image: workspace.image,
         });
     } catch (error) {
         return res.status(500).json({ message: "Failed to fetch workspace", error });
@@ -103,23 +105,31 @@ export const show = async (req: Request, res: Response): Promise<Response> => {
 export const update = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { id } = req.params;
-        const { userId, workspaceId, role } = req.body;
+        const { name } = req.body;
 
-        const updatedMember = await Member.findByIdAndUpdate(
+        const updateWorkspace = await Workspace.findByIdAndUpdate(
             id,
-            { userId, workspaceId, role },
-            { new: true }
-        );
+            {
+                name,
+                image: req.file?.path,
+                userId: req.userId,
+                inviteCode: 'fasdfasd',
+            },
+        )
 
-        if (!updatedMember) {
-            return res.status(404).json({ message: "Member not found" });
+        console.log(updateWorkspace);
+
+        if (! updateWorkspace) {
+            return res.status(404).json({
+                message: 'Workspace not found',
+            });
         }
 
-        return res.status(200).json({
-            id: updatedMember._id,
-            userId: updatedMember.userId,
-            workspaceId: updatedMember.workspaceId,
-            role: updatedMember.role,
+        return res.status(201).json({
+            id: updateWorkspace._id,
+            name: updateWorkspace.name,
+            image: updateWorkspace.image,
+            userId: updateWorkspace.userId,
         });
     } catch (error) {
         return res.status(500).json({ message: "Failed to update member", error });

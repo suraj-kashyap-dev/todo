@@ -4,12 +4,13 @@ import {
   CircleCheckBig,
   Settings,
   UsersRound,
+  CirclePlus,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Item from './Item';
 import Divider from '../../Divider';
 import WorkspaceSwitcher from '../WorkspaceSwitcher';
-import Workspace from '../Workspace';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -17,6 +18,8 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const { t } = useTranslation();
+
+  const navigate= useNavigate();
 
   const navItems = [
     { icon: <Home className="h-5 w-5" />, label: t('dashboard'), path: '/dashboard' },
@@ -38,7 +41,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div className="px-4 py-1">
         <div className="mb-3 flex items-center justify-between text-sm font-semibold text-gray-700">
           <span>Workspace</span>
-          <Workspace />
+          <button
+            onClick={() => navigate('/dashboard/workspaces/create')}
+            className="ml-2 rounded-lg p-2 hover:bg-gray-100"
+            title="Create Workspace"
+          >
+            <CirclePlus className="h-5 w-5" />
+          </button>
         </div>
 
         <WorkspaceSwitcher />

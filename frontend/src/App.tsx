@@ -10,11 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { Layout } from './components/layout/Index';
-import { AuthLayout } from './components/layout/AuthLayout';
+import { AuthLayout } from './components/layout/SessionLayout';
 import NotFound from './pages/Notfound';
 import Loading from './components/Loading';
 import Profile from './pages/Profile';
-import Workspaces from './pages/Workspaces';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Task = lazy(() => import('./pages/Task'));
@@ -23,6 +22,8 @@ const Settings = lazy(() => import('./pages/Settings'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const ForgetPassword = lazy(() => import('./pages/ForgetPassword'));
+const WorkspaceCreate = lazy(() => import('./pages/workspaces/Create'));
+const WorkspaceEdit = lazy(() => import('./pages/workspaces/Edit'));
 
 const App: React.FC = () => {
   return (
@@ -71,7 +72,8 @@ const App: React.FC = () => {
               <Route path="/dashboard/tasks" element={<Task />} />
               <Route path="/dashboard/settings" element={<Settings />} />
               <Route path="/dashboard/members" element={<Members />} />
-              <Route path='/dashboard/workspaces/:id' element={<Workspaces />} />
+              <Route path='/dashboard/workspaces/create' element={<WorkspaceCreate />} />
+              <Route path='/dashboard/workspaces/:id' element={<WorkspaceEdit />} />
               <Route path='/dashboard/profile' element={<Profile />} />
             </Route>
 

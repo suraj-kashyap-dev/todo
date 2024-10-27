@@ -8,6 +8,7 @@ interface WorkspaceApiState {
     loading: boolean;
     error: string | null;
     workspace: Workspace[] | null;
+    currentWorkspace: Workspace | null; // State to hold the current workspace
 }
 
 export const useWorkspaceApi = () => {
@@ -15,6 +16,7 @@ export const useWorkspaceApi = () => {
         loading: false,
         error: null,
         workspace: null,
+        currentWorkspace: null, // Initialize as null
     });
 
     const handleError = (error: unknown) => {
@@ -40,6 +42,26 @@ export const useWorkspaceApi = () => {
         }
     };
 
+    const getWorkspaceById = async (id: string): Promise<Workspace | null> => {
+        try {
+            setState((prev) => ({ ...prev, loading: true, error: null }));
+            const response = await httpClient.get<Workspace>(`${API_WORKSPACE}/${id}`);
+
+            setState((prev) => ({
+                ...prev,
+                currentWorkspace: response.data,
+            }));
+
+            return response.data; // Return the fetched workspace
+        } catch (error) {
+            const errorMessage = handleError(error);
+            setState((prev) => ({ ...prev, error: errorMessage }));
+            throw error;
+        } finally {
+            setState((prev) => ({ ...prev, loading: false }));
+        }
+    };
+
     const storeWorkspace = async (values: {
         name: string,
         file: File | null,
@@ -51,15 +73,73 @@ export const useWorkspaceApi = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    
+
             // Add the newly created workspace to the state
             setState((prev) => ({
                 ...prev,
                 workspace: response.data ? [response.data, ...(prev.workspace || [])] : prev.workspace,
             }));
-    
+
             // Return the newly created workspace
             return response.data; 
+        } catch (error) {
+            const errorMessage = handleError(error);
+            setState((prev) => ({ ...prev, error: errorMessage }));
+            throw error;
+        } finally {
+            setState((prev) => ({ ...prev, loading: false }));
+        }
+    };
+
+    const updateWorkspace = async (id: string, values: {
+        name: string;
+        file?: File | null; // The image file is optional
+    }): Promise<Workspace | null> => {
+        try {
+            setState((prev) => ({ ...prev, loading: true, error: null }));
+            const response = await httpClient.put<Workspace>(`${API_WORKSPACE}/${id}`, values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            // Update the workspace in the state
+            setState((prev) => {
+                const updatedWorkspace = response.data;
+                if (!prev.workspace) return { ...prev, workspace: [updatedWorkspace] };
+
+                const updatedWorkspaces = prev.workspace.map((ws) =>
+                    ws.id === updatedWorkspace.id ? updatedWorkspace : ws
+                );
+
+                return {
+                    ...prev,
+                    workspace: updatedWorkspaces,
+                };
+            });
+
+            // Return the updated workspace
+            return response.data; 
+        } catch (error) {
+            const errorMessage = handleError(error);
+            setState((prev) => ({ ...prev, error: errorMessage }));
+            throw error;
+        } finally {
+            setState((prev) => ({ ...prev, loading: false }));
+        }
+    };
+
+    const destroyWorkspace = async (id: string): Promise<void> => {
+        try {
+            setState((prev) => ({ ...prev, loading: true, error: null }));
+            await httpClient.delete(`${API_WORKSPACE}/${id}`);
+
+            // Update the state to remove the destroyed workspace
+            setState((prev) => ({
+                ...prev,
+                workspace: prev.workspace ? prev.workspace.filter(ws => ws.id !== id) : null,
+                currentWorkspace: prev.currentWorkspace?.id === id ? null : prev.currentWorkspace, // Clear current workspace if it was deleted
+            }));
         } catch (error) {
             const errorMessage = handleError(error);
             setState((prev) => ({ ...prev, error: errorMessage }));
@@ -72,6 +152,9 @@ export const useWorkspaceApi = () => {
     return {
         ...state,
         getWorkspace,
+        getWorkspaceById,
         storeWorkspace,
+        updateWorkspace,
+        destroyWorkspace,
     };
 };
