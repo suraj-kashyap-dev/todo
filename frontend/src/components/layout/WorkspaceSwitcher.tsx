@@ -11,22 +11,22 @@ const WorkspaceSwitcher: React.FC = () => {
   const [selectedWorkspace, setSelectedWorkspace] =
     useState<WorkspaceType | null>(null);
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { workspaceId } = useParams<{ workspaceId: string }>();
 
   useEffect(() => {
     getWorkspace();
   }, []);
 
   useEffect(() => {
-    if (workspace && id) {
-      const initialWorkspace = workspace.find((ws) => ws.id === id);
+    if (workspace && workspaceId) {
+      const initialWorkspace = workspace.find((ws) => ws.id === workspaceId);
 
       if (initialWorkspace) {
         setSelectedWorkspace(initialWorkspace);
         localStorage.setItem('selectedWorkspaceId', initialWorkspace.id);
       }
     }
-  }, [workspace, id]);
+  }, [workspace, workspaceId]);
 
   useEffect(() => {
     if (error) showToast(error, { type: 'error' });

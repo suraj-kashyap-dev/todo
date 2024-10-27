@@ -34,6 +34,8 @@ const EditWorkspace: React.FC = () => {
     destroyWorkspace,
   } = useWorkspaceApi();
 
+  const fullInviteLink = `${window.location.origin}/workspaces/${workspaceId}/join/${currentWorkspace?.inviteCode}`;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -238,7 +240,9 @@ const EditWorkspace: React.FC = () => {
             type="text"
             id="name"
             name="name"
+            value={fullInviteLink}
             placeholder="Enter workspace name"
+            disabled
             className="mt-1 w-full rounded-lg border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           />
 
