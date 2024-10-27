@@ -96,13 +96,13 @@ const EditWorkspace: React.FC = () => {
     if (workspaceId) {
       destroyWorkspace(workspaceId);
 
-      toast("Workspace delete successgully", {
-        type: "success",
+      toast('Workspace delete successgully', {
+        type: 'success',
       });
 
-      navigate('/dashboard')
+      navigate('/dashboard');
     }
-  }
+  };
 
   const handleCopy = () => {
     setCopy(true);
@@ -110,7 +110,7 @@ const EditWorkspace: React.FC = () => {
     setTimeout(() => {
       setCopy(false);
     }, 1500);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -197,8 +197,9 @@ const EditWorkspace: React.FC = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.name}
-              className={`mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${formik.errors.name ? 'border-red-500' : ''
-                }`}
+              className={`mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${
+                formik.errors.name ? 'border-red-500' : ''
+              }`}
             />
             {formik.touched.name && formik.errors.name && (
               <p className="mt-1 text-sm text-red-500">{formik.errors.name}</p>
@@ -227,7 +228,8 @@ const EditWorkspace: React.FC = () => {
           </h2>
 
           <p className="mt-2 text-sm text-gray-500">
-            Invite a member by sharing a link they can use to join this workspace.
+            Invite a member by sharing a link they can use to join this
+            workspace.
           </p>
         </div>
 
@@ -241,16 +243,18 @@ const EditWorkspace: React.FC = () => {
           />
 
           <button
-            type='button'
+            type="button"
             className="rounded-lg bg-blue-500 p-2 text-white shadow transition hover:bg-blue-600"
             onClick={handleCopy}
             title="Create Workspace"
           >
-            { ! copy ? <Copy className="h-5 w-5" /> : <Check className="h-5 w-5" />  }
-            
+            {!copy ? (
+              <Copy className="h-5 w-5" />
+            ) : (
+              <Check className="h-5 w-5" />
+            )}
           </button>
         </div>
-
 
         <Divider className="my-4 border-gray-300" />
 
@@ -271,11 +275,10 @@ const EditWorkspace: React.FC = () => {
       {/* Danger Zone */}
       <div className="my-4 w-full space-y-8 rounded-lg bg-white p-8 shadow-md">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            Danger Zone
-          </h2>
+          <h2 className="text-2xl font-semibold text-gray-800">Danger Zone</h2>
           <p className="mt-2 text-sm text-gray-500">
-            Deleting the workspace will permanently remove all related data from the database.
+            Deleting the workspace will permanently remove all related data from
+            the database.
           </p>
         </div>
 

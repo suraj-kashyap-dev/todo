@@ -33,7 +33,7 @@ const Create: React.FC = () => {
       });
 
       showToast('Workspace created successfully', {
-        type: "success",
+        type: 'success',
       });
 
       navigate('/dashboard');
