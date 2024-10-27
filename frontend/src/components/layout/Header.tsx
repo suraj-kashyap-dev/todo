@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           </button>
 
           <div className='flex items-center justify-center gap-4'>
-            <Link to="/" className="select-none text-xl font-bold">
+            <Link to="/dashboard" className="select-none text-xl font-bold">
               <img src={logo} alt="" className='h-14' />
             </Link>
 

@@ -49,7 +49,8 @@ const Login: React.FC = () => {
       ) => {
         try {
           await loginUser(values);
-          navigate('/');
+
+          navigate('/dashboard');
         } catch (error: any) {
           if (error.status == 422) {
             console.log(error.response.data.errors);

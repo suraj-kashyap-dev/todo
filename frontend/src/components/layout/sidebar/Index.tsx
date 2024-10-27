@@ -19,36 +19,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const { t } = useTranslation();
 
   const navItems = [
-    { icon: <Home className="h-5 w-5" />, label: t('dashboard'), path: '/' },
+    { icon: <Home className="h-5 w-5" />, label: t('dashboard'), path: '/dashboard' },
     {
       icon: <Calendar className="h-5 w-5" />,
       label: t('today'),
-      path: '/today',
+      path: '/dashboard/today',
     },
     {
       icon: <Star className="h-5 w-5" />,
       label: t('important'),
-      path: '/important',
+      path: '/dashboard/important',
     },
     {
       icon: <CheckCircle className="h-5 w-5" />,
       label: t('completed'),
-      path: '/completed',
+      path: '/dashboard/completed',
     },
     {
       icon: <FolderOpen className="h-5 w-5" />,
       label: t('projects'),
-      path: '/projects',
+      path: '/dashboard/projects',
     },
     {
       icon: <Settings className="h-5 w-5" />,
       label: t('settings'),
-      path: '/settings',
+      path: '/dashboard/settings',
     },
     {
       icon: <Copy className="h-5 w-5" />,
       label: t('example'),
-      path: '/example',
+      path: '/dashboard/example',
     },
   ];
 
@@ -62,7 +62,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       lg:translate-x-0
     `}
     >
-      <nav className="h-full py-4 flex flex-col">
+      <nav className="flex h-full flex-col py-4">
         <div className="space-y-1 px-3">
           {navItems.map((item, index) => (
             <Item

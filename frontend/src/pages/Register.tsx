@@ -68,7 +68,7 @@ const Register: React.FC = () => {
       ) => {
         try {
           await registerUser(values);
-          navigate('/');
+          navigate('/dashboard');
         } catch (error: any) {
           if (error.status == 422) {
             setErrors(error.response.data.errors);

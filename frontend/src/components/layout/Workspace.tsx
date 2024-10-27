@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useWorkspaceApi } from '../../hooks/useWorkspaceApi';
 import { showToast } from '../../utils/toast';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -24,7 +25,8 @@ const validationSchema = Yup.object({
 const Workspace: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const { storeWorspace, loading, error } = useWorkspaceApi();
+  const { storeWorkspace, loading, error } = useWorkspaceApi();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -32,11 +34,15 @@ const Workspace: React.FC = () => {
       image: null,
     },
     validationSchema,
-    onSubmit: async (values) => {
-      await storeWorspace({
+    onSubmit: async (values, formikHelper) => {
+      const workspace =  await storeWorkspace({
         name: values.name,
         file: values.image,
       });
+
+      navigate(`/dashboard/workspaces/${workspace?.id}`);
+
+      formikHelper.resetForm();
 
       showToast("Workspace created successfully");
 

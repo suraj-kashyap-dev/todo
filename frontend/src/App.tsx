@@ -14,6 +14,7 @@ import { AuthLayout } from './components/layout/AuthLayout';
 import NotFound from './pages/Notfound';
 import Loading from './components/Loading';
 import Profile from './pages/Profile';
+import Workspaces from './pages/Workspaces';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Today = lazy(() => import('./pages/Today'));
@@ -69,13 +70,14 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/today" element={<Today />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/important" element={<Important />} />
-              <Route path="/completed" element={<Completed />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/dashboard/" element={<Dashboard />} />
+              <Route path="/dashboard/today" element={<Today />} />
+              <Route path="/dashboard/profile" element={<Profile />} />
+              <Route path="/dashboard/important" element={<Important />} />
+              <Route path="/dashboard/completed" element={<Completed />} />
+              <Route path="/dashboard/projects" element={<Projects />} />
+              <Route path="/dashboard/settings" element={<Settings />} />
+              <Route path='/dashboard/workspaces/:id' element={<Workspaces />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

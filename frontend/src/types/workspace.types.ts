@@ -2,7 +2,7 @@ export interface Workspace {
     id: string;
     name: string,
     image: string,
-    createAt: Date,
+    createdAt: string,
 }
 
 export interface WorkspaceUserInput {

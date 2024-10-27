@@ -40,10 +40,10 @@ export const useWorkspaceApi = () => {
         }
     };
 
-    const storeWorspace = async (values: {
+    const storeWorkspace = async (values: {
         name: string,
         file: File | null,
-    }): Promise<void> => {
+    }): Promise<Workspace | null> => {
         try {
             setState((prev) => ({ ...prev, loading: true, error: null }));
             const response = await httpClient.post<Workspace>(API_WORKSPACE, values, {
@@ -51,10 +51,15 @@ export const useWorkspaceApi = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+    
+            // Add the newly created workspace to the state
             setState((prev) => ({
                 ...prev,
                 workspace: response.data ? [response.data, ...(prev.workspace || [])] : prev.workspace,
             }));
+    
+            // Return the newly created workspace
+            return response.data; 
         } catch (error) {
             const errorMessage = handleError(error);
             setState((prev) => ({ ...prev, error: errorMessage }));
@@ -67,6 +72,6 @@ export const useWorkspaceApi = () => {
     return {
         ...state,
         getWorkspace,
-        storeWorspace,
+        storeWorkspace,
     };
 };

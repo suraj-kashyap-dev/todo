@@ -10,10 +10,10 @@ const NotFound: React.FC = () => {
       <h1 className="text-4xl font-bold">{t('errors.404.title')}</h1>
       <p className="mt-4 text-lg">{t('errors.404.message')}</p>
       <Link
-        to="/"
+        to="/dashboard"
         className="mt-6 rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
-        {t('errors.back')}
+        {t('Go Back To Dashboard')}
       </Link>
     </div>
   );
