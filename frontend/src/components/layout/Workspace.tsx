@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../ui/Dialog';
-import { PlusCircle, Save, Camera, Edit, Trash } from 'lucide-react';
+import { CirclePlus, Save, Camera, Edit, Trash, ChevronsUpDown } from 'lucide-react';
 import { Input } from '../ui/form-controls/Input';
 import { Label } from '../ui/form-controls/Label';
 import { Button } from '../ui/form-controls/Button';
@@ -14,7 +14,6 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useWorkspaceApi } from '../../hooks/useWorkspaceApi';
 import { showToast } from '../../utils/toast';
-import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -26,7 +25,6 @@ const Workspace: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { storeWorkspace, loading, error } = useWorkspaceApi();
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -34,15 +32,11 @@ const Workspace: React.FC = () => {
       image: null,
     },
     validationSchema,
-    onSubmit: async (values, formikHelper) => {
-      const workspace =  await storeWorkspace({
+    onSubmit: async (values) => {
+      await storeWorkspace({
         name: values.name,
         file: values.image,
       });
-
-      navigate(`/dashboard/workspaces/${workspace?.id}`);
-
-      formikHelper.resetForm();
 
       showToast("Workspace created successfully");
 
@@ -83,17 +77,17 @@ const Workspace: React.FC = () => {
         className="ml-2 rounded-lg p-2 hover:bg-gray-100"
         title="Create Workspace"
       >
-        <PlusCircle className="h-5 w-5" />
+        <CirclePlus className="h-5 w-5" />
       </button>
 
       <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
         <DialogContent className="flex h-[600px] flex-col rounded-lg bg-white p-6 shadow-lg sm:max-w-4xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold text-gray-800">
-              Media Manager
+              Create Workspace
             </DialogTitle>
             <DialogDescription className="text-sm text-gray-600">
-              Please fill in the details below to upload your media.
+              Please fill in the details below to create workspace.
             </DialogDescription>
           </DialogHeader>
 
@@ -162,12 +156,12 @@ const Workspace: React.FC = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
                 className={`mt-1 block w-full rounded-md shadow-sm ${
-                  formik.errors.name && formik.touched.name
+                  formik.errors.name
                     ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                     : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
                 }`}
               />
-              {formik.errors.name && formik.touched.name && (
+              {formik.errors.name && (
                 <p className="mt-1 text-sm text-red-500">{formik.errors.name}</p>
               )}
             </div>

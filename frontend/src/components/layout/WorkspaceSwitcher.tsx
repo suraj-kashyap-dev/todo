@@ -3,7 +3,7 @@ import Dropdown from '../ui/Dropdown';
 import { useWorkspaceApi } from '../../hooks/useWorkspaceApi';
 import { showToast } from '../../utils/toast';
 import { Workspace as WorkspaceType } from '../../types/workspace.types';
-import { Check } from 'lucide-react'; 
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const WorkspaceSwitcher: React.FC = () => {
@@ -14,28 +14,28 @@ const WorkspaceSwitcher: React.FC = () => {
     useEffect(() => {
         getWorkspace();
     }, []);
-    
+
     useEffect(() => {
         const storedWorkspaceId = localStorage.getItem('selectedWorkspaceId');
-    
+
         if (workspace && workspace.length > 0) {
             if (storedWorkspaceId) {
                 const foundWorkspace = workspace.find(ws => ws.id === storedWorkspaceId);
-    
+
                 if (foundWorkspace) {
                     setSelectedWorkspace(foundWorkspace);
                     navigate(`/dashboard/workspaces/${storedWorkspaceId}`);
                 }
             } else if (!selectedWorkspace) {
                 const firstWorkspaceId = workspace[0].id;
-    
+
                 setSelectedWorkspace(workspace[0]);
                 navigate(`/dashboard/workspaces/${firstWorkspaceId}`);
                 localStorage.setItem('selectedWorkspaceId', firstWorkspaceId);
             }
         }
     }, [workspace, navigate, selectedWorkspace]);
-    
+
 
     useEffect(() => {
         if (error) showToast(error, { type: 'error' });
@@ -55,20 +55,28 @@ const WorkspaceSwitcher: React.FC = () => {
     return (
         <Dropdown position="bottom-right">
             <Dropdown.Toggle>
-                <div className="flex min-w-[211px] select-none items-center gap-2 rounded-lg bg-gray-50 p-2 hover:bg-gray-100">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-amber-600">
-                        {selectedWorkspace?.image ? (
-                            <img
-                                src={`http://localhost:5000/${selectedWorkspace.image}`}
-                                alt={selectedWorkspace.name}
-                                className="h-full w-full rounded-full border border-gray-300 object-cover"
-                                crossOrigin="anonymous"
-                            />
-                        ) : (
-                            (selectedWorkspace?.name ?? "N").charAt(0).toUpperCase()
-                        )}
-                    </span>
-                    <span className="hidden sm:block">{selectedWorkspace?.name ?? 'No Workspace Selected'}</span>
+                <div className="flex min-w-[211px] cursor-pointer select-none items-center rounded-lg bg-gray-200 p-3 hover:bg-gray-300">
+                    <div className="flex items-center gap-2">
+                        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600">
+                            {selectedWorkspace?.image ? (
+                                <img
+                                    src={`http://localhost:5000/${selectedWorkspace.image}`}
+                                    alt={selectedWorkspace.name}
+                                    className="h-full w-full rounded-full object-cover"
+                                    crossOrigin="anonymous"
+                                />
+                            ) : (
+                                (selectedWorkspace?.name ?? "N").charAt(0).toUpperCase()
+                            )}
+                        </span>
+
+                        <span className="text-sm font-medium text-gray-700">
+                            {selectedWorkspace?.name ?? 'No Workspace Selected'}
+                        </span>
+                    </div>
+
+                    {/* Dropdown icon positioned to the right */}
+                    <ChevronsUpDown className="ml-auto h-4 w-4 text-gray-500" />
                 </div>
             </Dropdown.Toggle>
 
@@ -88,7 +96,7 @@ const WorkspaceSwitcher: React.FC = () => {
                                         className="h-full w-full rounded-full object-cover"
                                         crossOrigin="anonymous"
                                     />
-                                ) : ( 
+                                ) : (
                                     workspaceItem.name.charAt(0).toUpperCase()
                                 )}
                             </span>

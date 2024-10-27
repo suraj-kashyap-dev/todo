@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import Dropdown from '../ui/Dropdown';
 import logo from '../../assets/logo.png';
-import Workspace from './Workspace';
-import WorkspaceSwitcher from './WorkspaceSwitcher';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -38,11 +36,6 @@ export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             <Link to="/dashboard" className="select-none text-xl font-bold">
               <img src={logo} alt="" className='h-14' />
             </Link>
-
-            <div className='flex'>
-            <WorkspaceSwitcher />
-            <Workspace />
-            </div>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
@@ -17,12 +17,9 @@ import Profile from './pages/Profile';
 import Workspaces from './pages/Workspaces';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Today = lazy(() => import('./pages/Today'));
-const Completed = lazy(() => import('./pages/Completed'));
-const Projects = lazy(() => import('./pages/Projects'));
+const Task = lazy(() => import('./pages/Task'));
+const Members = lazy(() => import('./pages/Members'));
 const Settings = lazy(() => import('./pages/Settings'));
-const Important = lazy(() => import('./pages/Important'));
-const Example = lazy(() => import('./pages/Example'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const ForgetPassword = lazy(() => import('./pages/ForgetPassword'));
@@ -71,17 +68,14 @@ const App: React.FC = () => {
               }
             >
               <Route path="/dashboard/" element={<Dashboard />} />
-              <Route path="/dashboard/today" element={<Today />} />
-              <Route path="/dashboard/profile" element={<Profile />} />
-              <Route path="/dashboard/important" element={<Important />} />
-              <Route path="/dashboard/completed" element={<Completed />} />
-              <Route path="/dashboard/projects" element={<Projects />} />
+              <Route path="/dashboard/tasks" element={<Task />} />
               <Route path="/dashboard/settings" element={<Settings />} />
+              <Route path="/dashboard/members" element={<Members />} />
               <Route path='/dashboard/workspaces/:id' element={<Workspaces />} />
+              <Route path='/dashboard/profile' element={<Profile />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
-            <Route path="/example" element={<Example />} />
           </Routes>
         </Suspense>
       </Router>
