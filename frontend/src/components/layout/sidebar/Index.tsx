@@ -58,6 +58,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           ))}
         </div>
       </nav>
+
+      <div className="px-4 py-1">
+        <Divider className="my-4" />
+      </div>
     </aside>
   );
 };

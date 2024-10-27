@@ -55,7 +55,7 @@ const WorkspaceSwitcher: React.FC = () => {
     return (
         <Dropdown position="bottom-right">
             <Dropdown.Toggle>
-                <div className="flex min-w-[211px] cursor-pointer select-none items-center rounded-lg bg-gray-200 p-3 hover:bg-gray-300">
+                <div className="flex min-w-[225px] cursor-pointer select-none items-center rounded-lg bg-gray-200 p-3 hover:bg-gray-300">
                     <div className="flex items-center gap-2">
                         <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600">
                             {selectedWorkspace?.image ? (
